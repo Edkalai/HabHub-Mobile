@@ -9,6 +9,6 @@ package com.HabHub.gui;
  *
  * @author Ed
  */
-public class MatingForm {
+public class MatingForm extends BaseForm {
     
 }
