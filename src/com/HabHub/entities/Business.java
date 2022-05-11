@@ -63,7 +63,6 @@ public class Business {
 */
 
     public Business() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     public String getImage() {
         return image;

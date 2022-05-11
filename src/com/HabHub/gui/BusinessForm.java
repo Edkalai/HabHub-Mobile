@@ -61,7 +61,7 @@ public class BusinessForm extends BaseForm{
         Label s1 = new Label();
         Label s2 = new Label();
 
-        addTab(swipe,s1,res.getImage("back-logo.jpeg"),"","",res);
+        addTab(swipe,s1,res.getImage("back-logo.png"),"","",res);
 
         // Design
 
@@ -157,22 +157,9 @@ public class BusinessForm extends BaseForm{
             ScaleImageLabel image = new ScaleImageLabel(urlim);
             Container containerImg = new Container();
             image.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
-        }
-
+        } 
        
-
-
-        
-        
-        //enddesign
-        
-        
-        
-        
     }
-    
-    
-    
         private void addTab(Tabs swipe, Label spacer, Image image, String string, String text, Resources res) {
 
         int size = Math.min(Display.getInstance().getDisplayWidth(), Display.getInstance().getDisplayHeight());
@@ -204,7 +191,7 @@ public class BusinessForm extends BaseForm{
             )
         );
 
-        swipe.addTab("",res.getImage("back-logo.jpeg"), page1);
+        swipe.addTab("",res.getImage("back-logo.png"), page1);
     }
 
 
@@ -241,7 +228,7 @@ public class BusinessForm extends BaseForm{
           
         
         Label titreTxt = new Label("Nom :"+b.getTitre(),"NewsTopLine2");
-        Label DescriptionTxt = new Label("Age: "+b.getDescription(),"NewsTopLine2");
+        Label DescriptionTxt = new Label("Description²: "+b.getDescription(),"NewsTopLine2");
         Label margin = new Label("","NewsTopLine2");
 
         

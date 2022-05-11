@@ -2,11 +2,12 @@
 
 <resource majorVersion="1" minorVersion="11" useXmlUI="false">
     <image name="activation-background.jpg"  />
-    <image name="back-logo.jpeg"  />
+    <image name="back-logo.png"  />
     <image name="back.png"  />
     <image name="confirmation-background.jpg"  />
     <image name="dog.jpg"  />
     <image name="facebook-logo.png" type="multi"  />
+    <legacyFont name="Lato" />
     <image name="Logo.png" type="multi"  />
     <image name="map-pin.jpg"  />
     <image name="news-item-1.jpg"  />
@@ -106,7 +107,7 @@
         <val key="Form.bgType" value="0" />
         <val key="Form.transparency" value="255" />
         <val key="ImageOverlay.bgColor" value="14134b" />
-        <val key="ImageOverlay.transparency" value="60" />
+        <val key="ImageOverlay.transparency" value="0" />
         <val key="Label.fgColor" value="a2a1b8" />
         <font key="Label.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="2.5" />
         <val key="Label.transparency" value="0" />
@@ -166,31 +167,27 @@
         <val key="PaddedLabel.padUnit" value="2,2,2,2" />
         <val key="PaddedLabel.padding" value="2,2,2,2" />
         <val key="PaddedLabel.transparency" value="0" />
-        <val key="PictureWhiteBackgrond.bgColor" value="ffffff" />
-        <val key="PictureWhiteBackgrond.margin" value="0,0,0,0" />
+        <val key="PictureWhiteBackgrond.bgColor" value="FAFAFA" />
+        <val key="PictureWhiteBackgrond.margin" value="0.0,0.0,0.0,0.0" />
         <val key="PictureWhiteBackgrond.padUnit" value="2,2,2,2" />
-        <val key="PictureWhiteBackgrond.padding" value="1,1,1,1" />
+        <val key="PictureWhiteBackgrond.padding" value="1.0,1.0,1.0,1.0" />
         <val key="PictureWhiteBackgrond.transparency" value="255" />
         <val key="SelectBar.align" value="4" />
-        <val key="SelectBar.bgColor" value="ff2d55" />
-        <val key="SelectBar.bgImage" value="news-tab-down.png" />
-        <val key="SelectBar.bgType" value="30" />
+        <val key="SelectBar.bgColor" value="E06C24" />
         <border key="SelectBar.border" type="empty" />
-        <val key="SelectBar.fgColor" value="feb2c1" />
+        <val key="SelectBar.fgColor" value="ffffff" />
         <font key="SelectBar.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="2.5" />
-        <val key="SelectBar.margin" value="0,0,0,0" />
+        <val key="SelectBar.margin" value="0.0,0.0,0.0,0.0" />
         <val key="SelectBar.padUnit" value="2,0,2,0" />
-        <val key="SelectBar.padding" value="2,3,0,0" />
+        <val key="SelectBar.padding" value="2.0,3.0,0.0,0.0" />
         <val key="SelectBar.press#align" value="4" />
-        <val key="SelectBar.press#bgColor" value="ff2d55" />
-        <val key="SelectBar.press#bgImage" value="news-tab-down.png" />
-        <val key="SelectBar.press#bgType" value="30" />
+        <val key="SelectBar.press#bgColor" value="FAFAFA" />
         <border key="SelectBar.press#border" type="empty" />
-        <val key="SelectBar.press#fgColor" value="ffffff" />
+        <val key="SelectBar.press#fgColor" value="E06C24" />
         <font key="SelectBar.press#font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="2.5" />
-        <val key="SelectBar.press#margin" value="0,0,0,0" />
+        <val key="SelectBar.press#margin" value="0.0,0.0,0.0,0.0" />
         <val key="SelectBar.press#padUnit" value="2,0,2,0" />
-        <val key="SelectBar.press#padding" value="2,3,0,0" />
+        <val key="SelectBar.press#padding" value="2.0,3.0,0.0,0.0" />
         <val key="SelectBar.press#transparency" value="255" />
         <val key="SelectBar.sel#align" value="4" />
         <val key="SelectBar.sel#bgColor" value="ff2d55" />
