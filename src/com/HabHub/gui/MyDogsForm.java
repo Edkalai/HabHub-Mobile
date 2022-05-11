@@ -61,7 +61,7 @@ public class MyDogsForm extends BaseForm{
         Label s1 = new Label();
         Label s2 = new Label();
 
-        addTab(swipe,s1,res.getImage("back-logo.jpeg"),"","",res);
+        addTab(swipe,s1,res.getImage("back-logo.png"),"","",res);
 
         // Design
 
@@ -73,7 +73,7 @@ public class MyDogsForm extends BaseForm{
         int size = Display.getInstance().convertToPixels(1);
         Image unselectedWalkthru = Image.createImage(size, size, 0);
         Graphics g = unselectedWalkthru.getGraphics();
-        g.setColor(0xffffff);
+        g.setColor(0x000000);
         g.setAlpha(100);
         g.setAntiAliased(true);
         g.fillArc(0, 0, size, size, 0, 360);
@@ -108,7 +108,7 @@ public class MyDogsForm extends BaseForm{
         mesListes.setUIID("SelectBar");
         RadioButton liste = RadioButton.createToggle("Autres", barGroup);
         liste.setUIID("SelectBar");
-        RadioButton partage = RadioButton.createToggle("Jeux", barGroup);
+        RadioButton partage = RadioButton.createToggle("My Dogs", barGroup);
         partage.setUIID("SelectBar");
         Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
 
@@ -204,7 +204,7 @@ public class MyDogsForm extends BaseForm{
             )
         );
 
-        swipe.addTab("",res.getImage("back-logo.jpeg"), page1);
+        swipe.addTab("",res.getImage("back-logo.png"), page1);
     }
 
 
