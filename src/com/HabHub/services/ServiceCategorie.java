@@ -5,7 +5,8 @@
  */
 package com.HabHub.services;
 
-import com.HabHub.entities.Produit;
+
+import com.HabHub.entities.Categorie;
 import com.HabHub.utils.Statics;
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
@@ -22,7 +23,7 @@ import java.util.Map;
  * @author asus
  */
 public class ServiceCategorie {
-       public static ServiceProduit instance = null;
+       public static ServiceCategorie instance = null;
     
     private ConnectionRequest req;
     
@@ -38,12 +39,11 @@ public class ServiceCategorie {
         req = new ConnectionRequest();
     }
     
-    public void ajouterProduit(Produit produit){
-        String url = Statics.BASE_URL+"/produit/new?nom="+produit.getNom()+
-                "&description="+produit.getDescription()+
-                "&prix="+produit.getPrix()+
-                "&marque="+produit.getMarque()+
-                "&categorie"+produit.getIdCategorie();
+    public void ajouterCategorie(Categorie cat){
+        String url = Statics.BASE_URL+"/categorie/new?nom="+cat.getNom()+
+                "&description="+cat.getDescription()
+                
+           ;
         
         req.setUrl(url);
         req.addResponseListener((e) -> {
@@ -57,13 +57,14 @@ public class ServiceCategorie {
     
     
     //afficher les produit
-    public ArrayList<Produit> AfficherProduits(){
-        ArrayList<Produit> result = new ArrayList<>();
+    public ArrayList<Categorie> AfficherCategories(){
+        ArrayList<Categorie> result = new ArrayList<>();
   
         
-          String url = Statics.BASE_URL+"/produit";
+          String url = Statics.BASE_URL+"/Categorie/back-office";
           req.setUrl(url);
           req.addResponseListener(new ActionListener<NetworkEvent>()  {
+              @Override
               public void actionPerformed(NetworkEvent evt){
                   JSONParser jsonp;
                   jsonp = new JSONParser();
@@ -74,30 +75,24 @@ public class ServiceCategorie {
                          List<Map<String,Object>> listOfProds =  (List<Map<String,Object>>) mapProduits.get("root");
                       
                          for(Map<String, Object> obj : listOfProds) {
-                        Produit p = new Produit();
+                        Categorie c = new Categorie();
                         
                         //dima id fi codename one float 5outhouha
-                        float id = Float.parseFloat(obj.get("idProduit").toString());
+                        float id = Float.parseFloat(obj.get("idCategorie").toString());
                         
                         String nom = obj.get("nom").toString();
                         
                         String description = obj.get("description").toString();
-                        float prix = Float.parseFloat(obj.get("prix").toString());
-                        String marque = obj.get("marque").toString();
-                        
-                        float idCategorie = Float.parseFloat(obj.get("idCategorie").toString());
-                     
-                        
-                        p.setIdProduit((int)id);
-                        p.setNom(nom);
-                        p.setDescription(description);
-                        p.setPrix(prix);
-                        p.setMarque(marque);
-                        p.setIdCategorie((int)idCategorie);
+                                        
+                   
+                        c.setIdCategorie((int)id);
+                        c.setNom(nom);
+                        c.setDescription(description);
+                       
                         
                         
                         //insert data into ArrayList result
-                        result.add(p);
+                        result.add(c);
                  
                   }
                   }
@@ -117,8 +112,8 @@ public class ServiceCategorie {
     
       
     //Delete 
-    public boolean deleteProduit(int idProduit ) {
-        String url = Statics.BASE_URL +"/produit/{idproduit}"+idProduit;
+    public boolean deleteCategorie(int idCategorie ) {
+        String url = Statics.BASE_URL +"/Categorie/{idcategorie}"+idCategorie;
         
         req.setUrl(url);
         
@@ -137,8 +132,8 @@ public class ServiceCategorie {
     
      
     //Update 
-    public boolean modifierProduit(Produit produit) {
-        String url = Statics.BASE_URL +"/produit/{idproduit}/edit"+produit.getIdProduit()+"&nom="+produit.getNom()+"&description="+produit.getDescription()+"&prix="+produit.getPrix()+"&marque="+produit.getMarque()+"&idCategorie="+produit.getIdCategorie();
+    public boolean modifierProduit(Categorie categorie) {
+        String url = Statics.BASE_URL +"/Categorie/{idcategorie}/edit"+categorie.getIdCategorie()+"&nom="+categorie.getNom()+"&description="+categorie.getDescription();
         req.setUrl(url);
         
         req.addResponseListener(new ActionListener<NetworkEvent>() {

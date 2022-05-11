@@ -9,7 +9,7 @@ package com.HabHub.entities;
  *
  * @author asus
  */
-class Categorie {
+public class Categorie {
       private int idCategorie;
     private String nom,description;
 
@@ -22,6 +22,10 @@ class Categorie {
     public Categorie(String nom, String description) {
         this.nom = nom;
         this.description = description;
+    }
+
+    public Categorie() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getIdCategorie() {
