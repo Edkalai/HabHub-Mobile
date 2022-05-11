@@ -22,8 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -65,7 +64,7 @@ public class ServiceRevue {
    }
    public ArrayList<Revue>displayRevues(Revue revue){
        ArrayList<Revue> result = new ArrayList<>();
-       String url = Statics.BASE_URL+"revue/index?idbusiness="+revue.getIdbusiness();
+       String url = Statics.BASE_URL+"/revue/index?idbusiness="+revue.getIdbusiness();
        req.setUrl(url);
        
        

@@ -1,5 +1,7 @@
 package com.HabHub.myapp;
 
+import com.HabHub.gui.BusinessForm;
+
 import static com.codename1.ui.CN.*;
 import com.codename1.io.Log;
 import com.codename1.ui.Button;
@@ -26,7 +28,7 @@ import com.codename1.io.NetworkEvent;
  */
 public class Main {
 
-    private Form current;
+      private Form current;
     private Resources theme;
 
     public void init(Object context) {
@@ -53,43 +55,13 @@ public class Main {
     }
     
     public void start() {
-        if(current != null){
+        if(current != null){    
             current.show();
             return;
         }
-        Form hi = new Form("Welcome", new BorderLayout(BorderLayout.CENTER_BEHAVIOR_CENTER_ABSOLUTE));
-        final Label apple = new Label(theme.getImage("apple-icon.png")); 
-        final Label android = new Label(theme.getImage("android-icon.png")); 
-        final Label windows = new Label(theme.getImage("windows-icon.png")); 
-        Button getStarted = new Button("Let's Get Started!");
-        FontImage.setMaterialIcon(getStarted, FontImage.MATERIAL_LINK);
-        getStarted.setUIID("GetStarted");
-        hi.addComponent(BorderLayout.CENTER, 
-                LayeredLayout.encloseIn(
-                        BoxLayout.encloseY(
-                                new Label(theme.getImage("duke-no-logos.png")),
-                                getStarted
-                        ),
-                        FlowLayout.encloseRightMiddle(apple)
-                    )
-        );
-        
-        getStarted.addActionListener((e) -> {
-            execute("https://www.codenameone.com/developers.html");
-        });
-        
-        new UITimer(() -> {
-            if(apple.getParent() != null) {
-                apple.getParent().replace(apple, android, CommonTransitions.createFade(500));
-            } else {
-                if(android.getParent() != null) {
-                    android.getParent().replace(android, windows, CommonTransitions.createFade(500));
-                } else {
-                    windows.getParent().replace(windows, apple, CommonTransitions.createFade(500));
-                }                
-            }
-        }).schedule(2200, true, hi);
-        hi.show();
+        //houni awl interface yet7al
+        new BusinessForm(theme).show(); //n7oto signup bch yjibha awl form
+       
     }
 
     public void stop() {
@@ -102,5 +74,6 @@ public class Main {
     
     public void destroy() {
     }
+
 
 }

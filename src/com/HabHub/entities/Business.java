@@ -15,13 +15,26 @@ public class Business {
     private String description;
     private String horaire;
     private String ville;
-    private String localisation;
     private String type;
     private String image;
-    private Utilisateur idutilisateur;
+    //private Utilisateur idutilisateur;
     private float lat;
     private float lng;
 
+    
+    
+    public Business(int idbusiness, String titre, String description, String horaire, String ville, String type, String image,float lat, float lng) {
+        this.idbusiness = idbusiness;
+        this.titre = titre;
+        this.description = description;
+        this.horaire = horaire;
+        this.ville = ville;
+       
+        this.type = type;
+        this.image = image;
+        this.lat = lat;
+        this.lng = lng;
+    }/*
     public Business(int idbusiness, String titre, String description, String horaire, String ville, String localisation, String type, Utilisateur idutilisateur, float lng) {
         this.idbusiness = idbusiness;
         this.titre = titre;
@@ -47,7 +60,11 @@ public class Business {
         this.lat = lat;
         this.lng = lng;
     }
+*/
 
+    public Business() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     public String getImage() {
         return image;
     }
@@ -96,14 +113,6 @@ public class Business {
         this.ville = ville;
     }
 
-    public String getLocalisation() {
-        return localisation;
-    }
-
-    public void setLocalisation(String localisation) {
-        this.localisation = localisation;
-    }
-
     public String getType() {
         return type;
     }
@@ -111,7 +120,7 @@ public class Business {
     public void setType(String type) {
         this.type = type;
     }
-
+/*
     public Utilisateur getIdutilisateur() {
         return idutilisateur;
     }
@@ -119,7 +128,7 @@ public class Business {
     public void setIdutilisateur(Utilisateur idutilisateur) {
         this.idutilisateur = idutilisateur;
     }
-
+*/
     public float getLat() {
         return lat;
     }
