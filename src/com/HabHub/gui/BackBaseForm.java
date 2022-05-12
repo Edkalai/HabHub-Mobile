@@ -38,16 +38,16 @@ import com.codename1.ui.util.Resources;
  *
  * @author Shai Almog
  */
-public class BaseForm extends Form {
+public class BackBaseForm extends Form {
 
-    public BaseForm() {
+    public BackBaseForm() {
     }
 
-    public BaseForm(Layout contentPaneLayout) {
+    public BackBaseForm(Layout contentPaneLayout) {
         super(contentPaneLayout);
     }
 
-    public BaseForm(String title, Layout contentPaneLayout) {
+    public BackBaseForm(String title, Layout contentPaneLayout) {
         super(title, contentPaneLayout);
     }
     
@@ -82,14 +82,8 @@ public class BaseForm extends Form {
                         new Label(res.getImage("profile-pic.jpg"), "PictureWhiteBackgrond"))
         ));
         
-        tb.addMaterialCommandToSideMenu("Services", FontImage.MATERIAL_DASHBOARD_CUSTOMIZE, e -> new BusinessForm(res).show());
-        tb.addMaterialCommandToSideMenu("Adoption", FontImage.MATERIAL_VOLUNTEER_ACTIVISM, e -> new MyDogsForm(res).show());
-        tb.addMaterialCommandToSideMenu("Hub", FontImage.MATERIAL_PETS, e -> new MyDogsForm(res).show());
-        tb.addMaterialCommandToSideMenu("Store", FontImage.MATERIAL_STORE, e -> new ListProduitsForm(res).show());
-        tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_PERSON, e -> new ProfileForm(res).show());
+        tb.addMaterialCommandToSideMenu("Services Admin", FontImage.MATERIAL_DASHBOARD_CUSTOMIZE, e -> new BackBusinessForm(res).show());
         tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new WalkthruForm(res).show());
-        tb.addMaterialCommandToSideMenu("Services Back", FontImage.MATERIAL_DASHBOARD_CUSTOMIZE, e -> new BackBusinessForm(res).show());
-
         
     }
 }

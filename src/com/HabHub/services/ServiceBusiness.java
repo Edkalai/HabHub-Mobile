@@ -154,7 +154,7 @@ public class ServiceBusiness {
         
     }
      public boolean DeleteBusiness(int Id ) {
-        String url = Statics.BASE_URL +"/business/delete/mobile?Id="+Id;
+        String url = Statics.BASE_URL +"/business/delete/mobile?id="+Id;
         
         req.setUrl(url);
         
