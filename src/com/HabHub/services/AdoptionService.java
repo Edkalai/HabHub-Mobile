@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import org.json.JSONArray;
 
 /**
  *
@@ -71,15 +72,75 @@ public class AdoptionService {
     
     
     //affichage
-    
-    public ArrayList<AnnonceAdoption>affichageReclamations() {
+    public ArrayList<AnnonceAdoption>displayAdoption() {
         ArrayList<AnnonceAdoption> result = new ArrayList<>();
         
         String url = Statics.BASE_URL+"/annonce/adoption/displayMobileAdoption";
         req.setUrl(url);
+        System.out.println(url);
         
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
+            public void actionPerformed(NetworkEvent evt) {
+                JSONParser jsonp ;
+                jsonp = new JSONParser();
+                
+                try {
+                    String jsonString = new String(req.getResponseData());
+                    System.out.println(jsonString);
+                    JSONArray  obj = new JSONArray (jsonString);
+                    for (int i = 0; i < obj.length(); i++)
+                        {
+                            Chien c = new Chien();
+                        AnnonceAdoption a = new AnnonceAdoption();
+                        
+                                String nom = obj.getJSONObject(i).getJSONObject("idchien").getString("nom");
+                                String age = obj.getJSONObject(i).getJSONObject("idchien").getString("age");
+                                String image=obj.getJSONObject(i).getJSONObject("idchien").getString("image");
+                                float idchien = Float.parseFloat(obj.getJSONObject(i).getJSONObject("idchien").get("idchien").toString());
+                                float id = Float.parseFloat(obj.getJSONObject(i).get("idannonceadoption").toString());
+                                String sexe = obj.getJSONObject(i).getJSONObject("idchien").getString("sexe");
+                                String description = obj.getJSONObject(i).getString("description").toString();
+                                String localisation = obj.getJSONObject(i).getString("localisation").toString();
+                                c.setNom(nom);
+                                 c.setAge(age);
+                                  c.setIdchien((int)idchien);
+                                  a.setIdAnnonceAdoption((int)id);
+                                    c.setSexe(sexe);
+                                    c.setImage(image);
+                                    a.setIdChien(c);
+                                    a.setDescription(description);
+                                    a.setLocalisation(localisation);
+                                    
+                                    
+                        
+                    
+                        result.add(a);
+                            
+                        }
+                                               
+                }catch(Exception ex) {
+                    
+                    ex.printStackTrace();
+                }
+            
+            }
+        });
+        
+      NetworkManager.getInstance().addToQueueAndWait(req);
+
+        return result;
+        
+        
+    }
+    /*
+    
+    public ArrayList<AnnonceAdoption>affichageAdoption() {
+        ArrayList<AnnonceAdoption> result = new ArrayList<>();
+        
+        String url = Statics.BASE_URL+"/annonce/adoption/displayMobileAdoption";
+        req.setUrl(url);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
             public void actionPerformed(NetworkEvent evt) {
                 JSONParser jsonp ;
                 jsonp = new JSONParser();
@@ -93,24 +154,23 @@ public class AdoptionService {
                         AnnonceAdoption a = new AnnonceAdoption();
                         
                         //dima id fi codename one float 5outhouha
-                        float id = Float.parseFloat(obj.get("idAnnonceAdoption").toString());
+                        float id = Float.parseFloat(obj.get("idannonceadoption").toString());
                         
-                        Individu indiv = (Individu) obj.get("idIndividu");
-                        Chien ch = (Chien) obj.get("Chien");
+                        
                         
                         String description = obj.get("description").toString();
                         String localisation = obj.get("localisation").toString();
        
                         
                         a.setIdAnnonceAdoption((int)id);
-                        a.setIdIndividu(indiv);
+                        
           
                         a.setDescription(description);
-                        a.setDescription(localisation);
-                        a.setIdChien(ch);
+                        a.setLocalisation(localisation);
+                        
                         
                         //Date 
-                        String DateConverter =  obj.get("datePublication").toString().substring(obj.get("datePublication").toString().indexOf("timestamp") + 10 , obj.get("datePublication").toString().lastIndexOf("}"));
+                        String DateConverter =  obj.get("datepublication").toString().substring(obj.get("datepublication").toString().indexOf("timestamp") + 10 , obj.get("datepublication").toString().lastIndexOf("}"));
                         
                         Date currentTime = new Date(Double.valueOf(DateConverter).longValue() * 1000);
                         
@@ -138,7 +198,24 @@ public class AdoptionService {
         
         
     }
-    
+    */
+    //Delete 
+    public boolean deleteAnnonce(int id ) {
+        String url = Statics.BASE_URL +"/annonce/adoption/deleteAdoption?id="+id;
+        
+        req.setUrl(url);
+        
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                    
+                    req.removeResponseCodeListener(this);
+            }
+        });
+        
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return  resultOk;
+    }
     
     /*
     //Detail Reclamation bensba l detail n5alihoa lel5r ba3d delete+update
@@ -217,5 +294,23 @@ public class AdoptionService {
         
     }
     */
+    
+    //Update 
+    public boolean modifierAnnonce(AnnonceAdoption annonce) {
+        String url = Statics.BASE_URL +"/annonce/adoption/updateMobileAdoption?id="+annonce.getIdAnnonceAdoption()+"&localisation="+annonce.getLocalisation()+"&description="+annonce.getDescription();
+        req.setUrl(url);
+        
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOk = req.getResponseCode() == 200 ;  // Code response Http 200 ok
+                req.removeResponseListener(this);
+            }
+        });
+        
+    NetworkManager.getInstance().addToQueueAndWait(req);//execution ta3 request sinon yet3ada chy dima nal9awha
+    return resultOk;
+        
+    }
     
 }
