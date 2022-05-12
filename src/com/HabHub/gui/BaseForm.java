@@ -82,7 +82,7 @@ public class BaseForm extends Form {
                         new Label(res.getImage("profile-pic.jpg"), "PictureWhiteBackgrond"))
         ));
         
-        tb.addMaterialCommandToSideMenu("Services", FontImage.MATERIAL_DASHBOARD_CUSTOMIZE, e -> new NewsfeedForm(res).show());
+        tb.addMaterialCommandToSideMenu("Services", FontImage.MATERIAL_DASHBOARD_CUSTOMIZE, e -> new BusinessForm(res).show());
         tb.addMaterialCommandToSideMenu("Adoption", FontImage.MATERIAL_VOLUNTEER_ACTIVISM, e -> new MyDogsForm(res).show());
         tb.addMaterialCommandToSideMenu("Hub", FontImage.MATERIAL_PETS, e -> new MyDogsForm(res).show());
         tb.addMaterialCommandToSideMenu("Store", FontImage.MATERIAL_STORE, e -> new MyDogsForm(res).show());

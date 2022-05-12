@@ -1,6 +1,8 @@
 package com.HabHub.myapp;
 
 
+
+import com.HabHub.gui.BusinessForm;
 import static com.codename1.ui.CN.*;
 import com.codename1.ui.Display;
 import com.codename1.ui.Form;
@@ -14,7 +16,6 @@ import java.io.IOException;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.io.NetworkEvent;
 import com.HabHub.gui.addDogForm;
-import com.HabHub.gui.MyDogsForm;
 import com.HabHub.gui.SignInForm;
 
 /**
@@ -54,8 +55,8 @@ public class Main {
             current.show();
             return;
         }
-        new MyDogsForm(theme).show();
-    }
+
+        new BusinessForm(theme).show();
 
     public void stop() {
         current = getCurrentForm();
