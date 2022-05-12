@@ -52,11 +52,91 @@ public class ServiceChien {
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
     }
+      public void addLike (int idindividu,int idchien) {
+        String url=Statics.BASE_URL+"/likes/mobile/addlikemobile/mobile?idchien="+idchien+"&idindividu="+idindividu;
+         req.setUrl(url);
+        req.addResponseListener((e)-> {
+            String str = new String(req.getResponseData());
+           
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+    }
+    
+     public void removeLike (int idindividu,int idchien)  {
+         String url=Statics.BASE_URL+"/likes/mobile/removelikemobile?idchien="+idchien+"&idindividu="+idindividu;
+        req.setUrl(url);
+        req.addResponseListener((e)-> {
+            String str = new String(req.getResponseData());
+       
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+    }
+    
     public ArrayList<Chien>displayMyDogs() {
         ArrayList<Chien> result = new ArrayList<>();
         
-        String url = Statics.BASE_URL+"/chien/displayMyDogs?id=2";
-        System.out.println(url);
+        String urlmydogs = Statics.BASE_URL+"/chien/displayMyDogs?id=2";
+        req.setUrl(urlmydogs);
+        
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evnt) {
+                JSONParser jsonp ;
+                jsonp = new JSONParser();
+                
+                try {
+                    Map<String,Object>mapMyDogs = jsonp.parseJSON(new CharArrayReader(new String(req.getResponseData()).toCharArray()));
+                    
+                    List<Map<String,Object>> listOfMaps =  (List<Map<String,Object>>) mapMyDogs.get("root");
+                    
+                    for(Map<String, Object> obj : listOfMaps) {
+                        Chien c = new Chien();
+                        
+                       
+                        float idchien = Float.parseFloat(obj.get("idchien").toString());
+                        String nom = obj.get("nom").toString();
+                        String image = obj.get("image").toString();
+                        String sexe = obj.get("sexe").toString();
+                        String age = obj.get("age").toString();
+                        int nbLikes = Integer.parseInt(obj.get("nb").toString());
+                        int missing = Integer.parseInt(obj.get("missing").toString());
+                        int mating = Integer.parseInt(obj.get("mating").toString());
+                        
+                       
+                        
+                        c.setIdchien((int)idchien);
+                        c.setNom(nom);
+                        c.setSexe(sexe);
+                        c.setAge(age);
+                        c.setImage(image);
+                        c.setNbLikes(nbLikes);
+                        c.setMissing(missing);
+                        c.setMating(mating);
+                        
+                    
+                        //insert data into ArrayList result
+                        result.add(c);
+                      
+                    }
+                    
+                }catch(Exception ex) {
+                    
+                    ex.printStackTrace();
+                }
+            
+            }
+        });
+      NetworkManager.getInstance().addToQueueAndWait(req);
+        return result;
+        
+        
+    }
+    
+     public ArrayList<Chien>displayDogsNextDoor() {
+        ArrayList<Chien> result = new ArrayList<>();
+        
+        String url = Statics.BASE_URL+"/chien/displayDogsNextDoor?id=2";
+  
         req.setUrl(url);
         
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -79,9 +159,9 @@ public class ServiceChien {
                         String image = obj.get("image").toString();
                         String sexe = obj.get("sexe").toString();
                         String age = obj.get("age").toString();
-                        int nblikes = Integer.parseInt(obj.get("nb").toString());
-                        int missing = Integer.parseInt(obj.get("missing").toString());
-                        int mating = Integer.parseInt(obj.get("mating").toString());
+                        
+                         int liked = Integer.parseInt(obj.get("liked").toString());
+                        String playWithMe = obj.get("playwithme").toString();
                         
                        
                         
@@ -90,6 +170,7 @@ public class ServiceChien {
                         c.setSexe(sexe);
                         c.setAge(age);
                         c.setImage(image);
+                        c.setLiked(liked);
                         
                     
                         //insert data into ArrayList result
@@ -110,8 +191,7 @@ public class ServiceChien {
         
     }
     
-    
-    
+  
     
     
     public Chien DetailRecalamation( int id , Chien chien) {
@@ -146,7 +226,7 @@ public class ServiceChien {
             
         }));
         
-              NetworkManager.getInstance().addToQueueAndWait(req);//execution ta3 request sinon yet3ada chy dima nal9awha
+              NetworkManager.getInstance().addToQueueAndWait(req);
 
               return chien;
         

@@ -32,7 +32,9 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.HabHub.entities.Chien;
 import com.HabHub.services.ServiceChien;
-import com.HabHub.services.ServiceAnnonceProprietaireChien;
+import static com.codename1.ui.Component.BOTTOM;
+import static com.codename1.ui.Component.CENTER;
+import static com.codename1.ui.Component.LEFT;
 import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.FontImage;
 import java.util.ArrayList;
@@ -41,10 +43,10 @@ import java.util.ArrayList;
  *
  * @author tarek
  */
-public class MyDogsForm extends BaseForm{
+public class DogsNextDoorForm extends BaseForm{
      Form current;
     
-    public MyDogsForm(Resources res){
+    public DogsNextDoorForm(Resources res){
                 super("Newsfeed", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         current=this;
@@ -150,7 +152,7 @@ public class MyDogsForm extends BaseForm{
                 FlowLayout.encloseBottom(arrow)
         ));
 
-        myDogs.setSelected(true);
+        dogsNextDoor.setSelected(true);
         arrow.setVisible(false);
         addShowListener(e -> {
             arrow.setVisible(true);
@@ -167,17 +169,16 @@ public class MyDogsForm extends BaseForm{
         
                 
         //Appel affichage methode
-        ArrayList<Chien>list = ServiceChien.getInstance().displayMyDogs(); 
-             int i = 0;
+        ArrayList<Chien>list = ServiceChien.getInstance().displayDogsNextDoor(); 
+            
         for(Chien c : list)
         {
-            i++;
+      
              String urlImage = "http://localhost/HabHub-Website/public/FrontOffice/uploads/"+c.getImage();
-            System.out.println(c.getImage());
             Image placeHolder = Image.createImage(120, 90);
             EncodedImage enc = EncodedImage.createFromImage(placeHolder, false);
             URLImage urlim = URLImage.createToStorage(enc, urlImage, urlImage, URLImage.RESIZE_SCALE);
-            addDog(urlim,c,res,i);
+            addDog(urlim,c,res);
             ScaleImageLabel image = new ScaleImageLabel(urlim);
             Container containerImg = new Container();
             image.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
@@ -251,7 +252,7 @@ public class MyDogsForm extends BaseForm{
 
     }
 
-    private void addDog(Image img,Chien c, Resources res, int i) {
+    private void addDog(Image img,Chien c, Resources res) {
         
         
         int height = Display.getInstance().convertToPixels(16f);
@@ -270,177 +271,71 @@ public class MyDogsForm extends BaseForm{
 
          createLineSeparator();
         
-       
-       
-        
-        //supprimer button
-        Label lSupprimer = new Label(" ");
-        lSupprimer.setUIID("NewsTopLine");
-        Style buttonStyle = new Style(lSupprimer.getUnselectedStyle());
+       //like button
+        Label liked = new Label(" ");
+        liked.setUIID("NewsTopLine");
+        Style buttonStyle = new Style(liked.getUnselectedStyle());
         buttonStyle.setFgColor(0xe06c24);
-        FontImage suprrimerImage = FontImage.createMaterial(FontImage.MATERIAL_DELETE, buttonStyle);
-        lSupprimer.setIcon(suprrimerImage);
-        lSupprimer.setTextPosition(RIGHT);
-        
-        //click delete icon
-        lSupprimer.addPointerPressedListener(l -> {
-            Dialog dig = new Dialog("Suppression");
-            
-            if(dig.show("Suppression","Vous voulez supprimer ce chien ?","Annuler","Oui")) {
-                dig.dispose();
-               
-            }
-            else {
-                dig.dispose();
-                 if(ServiceChien.getInstance().deleteDog(c.getIdchien())) {
-                    new MyDogsForm(res).show();
-                }
-                 }
-                
-           
-        });
-        
-         //add lost button
-        Label lost = new Label(" ");
-        lost.setUIID("NewsTopLine");
-        Style lostStyle = new Style(lost.getUnselectedStyle());
-        FontImage lostImage = FontImage.createMaterial(FontImage.MATERIAL_SEARCH,buttonStyle);
-        lost.setIcon(lostImage);
-        lost.setTextPosition(RIGHT);
+        FontImage likedImage = FontImage.createMaterial(FontImage.MATERIAL_FAVORITE,buttonStyle);
+        liked.setIcon(likedImage);
+        liked.setTextPosition(RIGHT);
         
       
-        lost.addPointerPressedListener(l -> {
-            Dialog dig = new Dialog("Lost");
-            
-            if(dig.show("Lost","Do you want to declare your dog as lost","Cancel","Yes")) {
-                dig.dispose();
-               
-            }
-            else {
-                dig.dispose();
-                ServiceAnnonceProprietaireChien.getInstance().addLost(c.getIdchien());
-                    new MyDogsForm(res).show();
+        liked.addPointerPressedListener(l -> {
+           
+                ServiceChien.getInstance().removeLike(2,c.getIdchien());
+                    new DogsNextDoorForm(res).show();
                 
-                 }
+                
                 
            
         });
+         //dislike button
+        Label notLiked = new Label(" ");
+        notLiked.setUIID("NewsTopLine");
+       FontImage notLikedImage = FontImage.createMaterial(FontImage.MATERIAL_FAVORITE_BORDER,buttonStyle);
+        notLiked.setIcon(notLikedImage);
+        notLiked.setTextPosition(RIGHT);
         
-         //remove lost button
-        Label notLost = new Label(" ");
-        notLost.setUIID("NewsTopLine");
-        FontImage notLostImage = FontImage.createMaterial(FontImage.MATERIAL_SEARCH_OFF,buttonStyle);
-        notLost.setIcon(notLostImage);
-        notLost.setTextPosition(RIGHT);
-        
-      
-        notLost.addPointerPressedListener(l -> {
-            Dialog dig = new Dialog("Lost");
+       notLiked.addPointerPressedListener(l -> {
             
-            if(dig.show("Lost","Do you want to declare your dog as found","Cancel","Yes")) {
-                dig.dispose();
-               
-            }
-            else {
-                dig.dispose();
-                ServiceAnnonceProprietaireChien.getInstance().removeLost(c.getIdchien());
-                    new MyDogsForm(res).show();
-                
-                 }
+                ServiceChien.getInstance().addLike(2,c.getIdchien());
+                System.out.println("test");
+                    new DogsNextDoorForm(res).show();
+              
                 
            
         });
-        
-        //add mating button
-        Label mating = new Label(" ");
-        mating.setUIID("NewsTopLine");
-        FontImage matingImage = FontImage.createMaterial(FontImage.MATERIAL_CHECK_CIRCLE_OUTLINE,buttonStyle);
-        mating.setIcon(matingImage);
-        mating.setTextPosition(RIGHT);
-        
-      
-        mating.addPointerPressedListener(l -> {
-            Dialog dig = new Dialog("Mating");
-            
-            if(dig.show("Lost","Do you want to declare your dog as looking for a partner","Cancel","Yes")) {
-                dig.dispose();
-               
-            }
-            else {
-                dig.dispose();
-                ServiceAnnonceProprietaireChien.getInstance().addMating(c.getIdchien());
-                    new MyDogsForm(res).show();
-                
-                 }
-                
-           
-        });
-         //remove mating button
-        Label notMating = new Label(" ");
-        notMating.setUIID("NewsTopLine");
-        FontImage notMatingImage = FontImage.createMaterial(FontImage.MATERIAL_CHECK_CIRCLE,buttonStyle);
-        notMating.setIcon(notMatingImage);
-        notMating.setTextPosition(RIGHT);
-        
-       notMating.addPointerPressedListener(l -> {
-            Dialog dig = new Dialog("Mating");
-            
-            if(dig.show("Lost","Has your dog found a partner?","Cancel","Yes")) {
-                dig.dispose();
-               
-            }
-            else {
-                dig.dispose();
-                ServiceAnnonceProprietaireChien.getInstance().removeMating(c.getIdchien());
-                    new MyDogsForm(res).show();
-                
-                 }
-                
-           
-        });
-        Label lostButton=lost;
-       Label matingButton=mating;
-       if (c.getMissing()==1)
+        System.out.println(c.getLiked());
+        Label likeButton;
+       if (c.getLiked()==0)
        {
-       lostButton=notLost;
+       likeButton=notLiked;
        }
-       if (c.getMating()==1)
+       else
        {
-       matingButton=notMating;
+           likeButton=liked;
        }
-      
-        
-        
-        FontImage heart = FontImage.createMaterial(FontImage.MATERIAL_FAVORITE, buttonStyle);
-         Label likes = new Label(Integer.toString(c.getNbLikes()));
-        likes.setUIID("NewsTopLine");
-        likes.setIcon(heart);
-        likes.setTextPosition(RIGHT);
        
+        
+        
+        
                 cnt.add(BorderLayout.CENTER, BoxLayout.encloseX(
 
          
             BoxLayout.encloseX(NameCategTxt),
             BoxLayout.encloseX(DescriptionCategTxt),
-            BoxLayout.encloseX(margin),
-            BoxLayout.encloseX(likes)
-            
-            
+            BoxLayout.encloseX(margin)
                      
 
         ));
-                 cnt.add(BorderLayout.EAST, BoxLayout.encloseY(
-         BoxLayout.encloseX(lSupprimer),
-         BoxLayout.encloseX(matingButton),
-            BoxLayout.encloseX(lostButton)
+                cnt.add(BorderLayout.EAST, BoxLayout.encloseX(
+
            
-            
+            BoxLayout.encloseX(likeButton)
                      
 
         ));
-           
-                 
-                 
 
         add(cnt);
        
