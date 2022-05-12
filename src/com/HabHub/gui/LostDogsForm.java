@@ -31,7 +31,11 @@ import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.HabHub.entities.Chien;
-import com.HabHub.services.ServiceChien;
+import com.HabHub.entities.AnnonceProprietaireChien;
+import com.HabHub.services.ServiceAnnonceProprietaireChien;
+import static com.codename1.ui.Component.BOTTOM;
+import static com.codename1.ui.Component.CENTER;
+import static com.codename1.ui.Component.LEFT;
 import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.FontImage;
 import java.util.ArrayList;
@@ -40,10 +44,10 @@ import java.util.ArrayList;
  *
  * @author tarek
  */
-public class MyDogsForm extends BaseForm{
+public class LostDogsForm extends BaseForm{
      Form current;
     
-    public MyDogsForm(Resources res){
+    public LostDogsForm(Resources res){
                 super("Newsfeed", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         current=this;
@@ -149,7 +153,7 @@ public class MyDogsForm extends BaseForm{
                 FlowLayout.encloseBottom(arrow)
         ));
 
-        myDogs.setSelected(true);
+        lostDogs.setSelected(true);
         arrow.setVisible(false);
         addShowListener(e -> {
             arrow.setVisible(true);
@@ -166,17 +170,17 @@ public class MyDogsForm extends BaseForm{
         
                 
         //Appel affichage methode
-        ArrayList<Chien>list = ServiceChien.getInstance().displayMyDogs(); 
+        ArrayList<AnnonceProprietaireChien>list = ServiceAnnonceProprietaireChien.getInstance().displayLost();
              int i = 0;
-        for(Chien c : list)
+        for(AnnonceProprietaireChien a : list)
         {
             i++;
-             String urlImage = "http://localhost/HabHub-Website/public/FrontOffice/uploads/"+c.getImage();
-            System.out.println(c.getImage());
+             String urlImage = "http://localhost/HabHub-Website/public/FrontOffice/uploads/"+a.getIdChien().getImage();
+            System.out.println(a.getIdChien().getImage());
             Image placeHolder = Image.createImage(120, 90);
             EncodedImage enc = EncodedImage.createFromImage(placeHolder, false);
             URLImage urlim = URLImage.createToStorage(enc, urlImage, urlImage, URLImage.RESIZE_SCALE);
-            addDog(urlim,c,res,i);
+            addAnnonceProprietaireChien(urlim,a,res,i);
             ScaleImageLabel image = new ScaleImageLabel(urlim);
             Container containerImg = new Container();
             image.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
@@ -250,7 +254,7 @@ public class MyDogsForm extends BaseForm{
 
     }
 
-    private void addDog(Image img,Chien c, Resources res, int i) {
+    private void addAnnonceProprietaireChien(Image img,AnnonceProprietaireChien a, Resources res, int i) {
         
         
         int height = Display.getInstance().convertToPixels(16f);
@@ -263,8 +267,8 @@ public class MyDogsForm extends BaseForm{
 
           
         
-        Label NameCategTxt = new Label("Nom :"+c.getNom(),"NewsTopLine2");
-        Label DescriptionCategTxt = new Label("Age: "+c.getAge(),"NewsTopLine2");
+        Label NameCategTxt = new Label("Nom :"+a.getIdChien().getNom(),"NewsTopLine2");
+        Label DescriptionCategTxt = new Label("Age: "+a.getIdChien().getAge(),"NewsTopLine2");
         Label margin = new Label("","NewsTopLine2");
 
          createLineSeparator();
@@ -272,41 +276,14 @@ public class MyDogsForm extends BaseForm{
        
        
         
-        //supprimer button
-        Label lSupprimer = new Label(" ");
-        lSupprimer.setUIID("NewsTopLine");
-        Style supprmierStyle = new Style(lSupprimer.getUnselectedStyle());
-        supprmierStyle.setFgColor(0xf21f1f);
-        
-        FontImage suprrimerImage = FontImage.createMaterial(FontImage.MATERIAL_DELETE, supprmierStyle);
-        lSupprimer.setIcon(suprrimerImage);
-        lSupprimer.setTextPosition(RIGHT);
-        
-        //click delete icon
-        lSupprimer.addPointerPressedListener(l -> {
-            Dialog dig = new Dialog("Suppression");
-            
-            if(dig.show("Suppression","Vous voulez supprimer ce chien ?","Annuler","Oui")) {
-                dig.dispose();
-               
-            }
-            else {
-                dig.dispose();
-                 if(ServiceChien.getInstance().deleteDog(c.getIdchien())) {
-                    new MyDogsForm(res).show();
-                }
-                 }
-                
-           
-        });
+     
         
                 cnt.add(BorderLayout.CENTER, BoxLayout.encloseY(
 
          
             BoxLayout.encloseX(NameCategTxt),
             BoxLayout.encloseX(DescriptionCategTxt),
-            BoxLayout.encloseX(margin),
-            BoxLayout.encloseX(lSupprimer)
+            BoxLayout.encloseX(margin)
                      
 
         ));
