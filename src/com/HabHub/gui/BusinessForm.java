@@ -228,7 +228,7 @@ public class BusinessForm extends BaseForm{
           
         
         Label titreTxt = new Label("Nom :"+b.getTitre(),"NewsTopLine2");
-        Label DescriptionTxt = new Label("Description²: "+b.getDescription(),"NewsTopLine2");
+        Label DescriptionTxt = new Label("Description: "+b.getDescription(),"NewsTopLine2");
         Label margin = new Label("","NewsTopLine2");
 
         
