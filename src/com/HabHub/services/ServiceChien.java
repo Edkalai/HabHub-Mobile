@@ -156,7 +156,7 @@ public class ServiceChien {
     
     //Delete 
     public boolean deleteDog(int id ) {
-        String url = Statics.BASE_URL +"/deleteDog?id="+id;
+        String url = Statics.BASE_URL +"/chien/deleteDog?id="+id;
         
         req.setUrl(url);
         
