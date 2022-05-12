@@ -14,7 +14,7 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 
 import com.codename1.ui.events.ActionListener;
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +65,7 @@ public class ServiceProduit {
         ArrayList<Produit> result = new ArrayList<>();
   
         
-          String url = Statics.BASE_URL+"/produit";
+          String url = Statics.BASE_URL+"/produit/mobile/index";
           req.setUrl(url);
           req.addResponseListener(new ActionListener<NetworkEvent>()  {
               public void actionPerformed(NetworkEvent evt){
@@ -81,15 +81,17 @@ public class ServiceProduit {
                         Produit p = new Produit();
                         
                         //dima id fi codename one float 5outhouha
-                        float id = Float.parseFloat(obj.get("idProduit").toString());
+                        float id = Float.parseFloat(obj.get("idproduit").toString());
                         
                         String nom = obj.get("nom").toString();
+                        
+                        String image = obj.get("image").toString();
                         
                         String description = obj.get("description").toString();
                         float prix = Float.parseFloat(obj.get("prix").toString());
                         String marque = obj.get("marque").toString();
                         
-                        float idCategorie = Float.parseFloat(obj.get("idCategorie").toString());
+                      //  float idCategorie = Float.parseFloat(obj.get("idcategorie").toString());
                      
                         
                         p.setIdProduit((int)id);
@@ -97,8 +99,8 @@ public class ServiceProduit {
                         p.setDescription(description);
                         p.setPrix(prix);
                         p.setMarque(marque);
-                        p.setIdCategorie((int)idCategorie);
-                        
+                       // p.setIdCategorie((int)idCategorie);
+                        p.setImage(image);
                         
                         //insert data into ArrayList result
                         result.add(p);

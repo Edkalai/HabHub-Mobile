@@ -55,7 +55,7 @@ public class Produit {
     }
 
     public Produit() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
     }
 
    

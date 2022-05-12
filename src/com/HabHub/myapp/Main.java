@@ -57,7 +57,7 @@ public class Main {
         }
 
         new BusinessForm(theme).show();
-
+    }
     public void stop() {
         current = getCurrentForm();
         if(current instanceof Dialog) {
