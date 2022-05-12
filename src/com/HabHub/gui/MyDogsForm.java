@@ -32,6 +32,8 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.HabHub.entities.Chien;
 import com.HabHub.services.ServiceChien;
+import static com.codename1.ui.Component.RIGHT;
+import com.codename1.ui.FontImage;
 import java.util.ArrayList;
 
 /**
@@ -244,18 +246,52 @@ public class MyDogsForm extends BaseForm{
         Label DescriptionCategTxt = new Label("Age: "+c.getAge(),"NewsTopLine2");
         Label margin = new Label("","NewsTopLine2");
 
+         createLineSeparator();
         
+       
+       
+        
+        //supprimer button
+        Label lSupprimer = new Label(" ");
+        lSupprimer.setUIID("NewsTopLine");
+        Style supprmierStyle = new Style(lSupprimer.getUnselectedStyle());
+        supprmierStyle.setFgColor(0xf21f1f);
+        
+        FontImage suprrimerImage = FontImage.createMaterial(FontImage.MATERIAL_DELETE, supprmierStyle);
+        lSupprimer.setIcon(suprrimerImage);
+        lSupprimer.setTextPosition(RIGHT);
+        
+        //click delete icon
+        lSupprimer.addPointerPressedListener(l -> {
+            
+            Dialog dig = new Dialog("Suppression");
+            
+            if(dig.show("Suppression","Vous voulez supprimer ce chien ?","Annuler","Oui")) {
+                dig.dispose();
+               
+            }
+            else {
+                dig.dispose();
+                 if(ServiceChien.getInstance().deleteDog(c.getIdchien())) {
+                    new MyDogsForm(res).show();
+                }
+                 }
+                
+           
+        });
         
                 cnt.add(BorderLayout.CENTER, BoxLayout.encloseY(
 
          
             BoxLayout.encloseX(NameCategTxt),
             BoxLayout.encloseX(DescriptionCategTxt),
-            BoxLayout.encloseX(margin)
+            BoxLayout.encloseX(margin),
+            BoxLayout.encloseX(lSupprimer)
+                     
 
         ));
 
         add(cnt);
-        System.out.println(cnt);
+       
     }
 }
