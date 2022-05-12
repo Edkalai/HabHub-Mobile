@@ -6,6 +6,7 @@
 package com.HabHub.services;
 import com.HabHub.entities.Chien;
 import com.HabHub.entities.AnnonceProprietaireChien;
+import com.HabHub.entities.Individu;
 import com.HabHub.utils.Statics;
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
@@ -42,11 +43,35 @@ public class ServiceAnnonceProprietaireChien {
         req = new ConnectionRequest();
     }
     
-    public void ajoutAnnonceProprietaireChien (Chien chien) {
-        String url=Statics.BASE_URL+"/chien/addDog?nom="+chien.getNom()+"&age="+chien.getAge()+
-                "&sexe="+chien.getSexe()+"&vaccination="+chien.isVaccination()+"&description="+
-                chien.getDescription()+"&color="+chien.getColor()+"&race="+chien.getRace()+
-                "&groupe="+chien.getGroupe()+"&idindividu="+chien.getIdIndividu();
+    public void addLost (int id) {
+        String url=Statics.BASE_URL+"/annonce-proprietaire-chien/addlostdog/mobile?id="+id;
+        req.setUrl(url);
+        req.addResponseListener((e)-> {
+            String str = new String(req.getResponseData());
+            System.out.println("data=="+str);
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+    }
+    public void removeLost (int id) {
+        String url=Statics.BASE_URL+"/annonce-proprietaire-chien/removelostdog/mobile?id="+id;
+        req.setUrl(url);
+        req.addResponseListener((e)-> {
+            String str = new String(req.getResponseData());
+            System.out.println("data=="+str);
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+    }
+    public void addMating (int id) {
+        String url=Statics.BASE_URL+"/annonce-proprietaire-chien/addmatingdog/mobile?id="+id;
+        req.setUrl(url);
+        req.addResponseListener((e)-> {
+            String str = new String(req.getResponseData());
+            System.out.println("data=="+str);
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+    }
+    public void removeMating (int id) {
+        String url=Statics.BASE_URL+"/annonce-proprietaire-chien/removematingdog/mobile?id="+id;
         req.setUrl(url);
         req.addResponseListener((e)-> {
             String str = new String(req.getResponseData());
@@ -74,19 +99,24 @@ public class ServiceAnnonceProprietaireChien {
                     for (int i = 0; i < obj.length(); i++)
                         {
                             Chien c = new Chien();
+                            Individu ind = new Individu();
                         AnnonceProprietaireChien a = new AnnonceProprietaireChien();
-                        
+                                String prenom = obj.getJSONObject(i).getJSONObject("idchien").getJSONObject("idindividu").getString("prenom");
                                 String nom = obj.getJSONObject(i).getJSONObject("idchien").getString("nom");
                                 String age = obj.getJSONObject(i).getJSONObject("idchien").getString("age");
                                 String image=obj.getJSONObject(i).getJSONObject("idchien").getString("image");
                               float idchien = Float.parseFloat(obj.getJSONObject(i).getJSONObject("idchien").get("idchien").toString());
                                 String sexe = obj.getJSONObject(i).getJSONObject("idchien").getString("sexe");
                                 c.setNom(nom);
+                                
+                                ind.setPrenom(prenom);
+                                c.setIdIndividu(ind);
                                  c.setAge(age);
                                   c.setIdchien((int)idchien);
                                     c.setSexe(sexe);
                                     c.setImage(image);
                                     a.setIdChien(c);
+                                    
                     
                         result.add(a);
                             
@@ -126,14 +156,18 @@ public class ServiceAnnonceProprietaireChien {
                     for (int i = 0; i < obj.length(); i++)
                         {
                             Chien c = new Chien();
+                            Individu ind = new Individu();
                         AnnonceProprietaireChien a = new AnnonceProprietaireChien();
-                        
+                           String prenom = obj.getJSONObject(i).getJSONObject("idchien").getJSONObject("idindividu").getString("prenom");
                                 String nom = obj.getJSONObject(i).getJSONObject("idchien").getString("nom");
                                 String age = obj.getJSONObject(i).getJSONObject("idchien").getString("age");
                                 String image=obj.getJSONObject(i).getJSONObject("idchien").getString("image");
                               float idchien = Float.parseFloat(obj.getJSONObject(i).getJSONObject("idchien").get("idchien").toString());
                                 String sexe = obj.getJSONObject(i).getJSONObject("idchien").getString("sexe");
                                 c.setNom(nom);
+                                
+                                ind.setPrenom(prenom);
+                                c.setIdIndividu(ind);
                                  c.setAge(age);
                                   c.setIdchien((int)idchien);
                                     c.setSexe(sexe);

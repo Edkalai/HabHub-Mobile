@@ -32,6 +32,7 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.HabHub.entities.Chien;
 import com.HabHub.services.ServiceChien;
+import com.HabHub.services.ServiceAnnonceProprietaireChien;
 import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.FontImage;
 import java.util.ArrayList;
@@ -263,8 +264,8 @@ public class MyDogsForm extends BaseForm{
 
           
         
-        Label NameCategTxt = new Label("Nom :"+c.getNom(),"NewsTopLine2");
-        Label DescriptionCategTxt = new Label("Age: "+c.getAge(),"NewsTopLine2");
+        Label NameCategTxt = new Label(c.getNom(),"NewsTopLine2");
+        Label DescriptionCategTxt = new Label(c.getAge(),"NewsTopLine2");
         Label margin = new Label("","NewsTopLine2");
 
          createLineSeparator();
@@ -275,10 +276,9 @@ public class MyDogsForm extends BaseForm{
         //supprimer button
         Label lSupprimer = new Label(" ");
         lSupprimer.setUIID("NewsTopLine");
-        Style supprmierStyle = new Style(lSupprimer.getUnselectedStyle());
-        supprmierStyle.setFgColor(0xf21f1f);
-        
-        FontImage suprrimerImage = FontImage.createMaterial(FontImage.MATERIAL_DELETE, supprmierStyle);
+        Style buttonStyle = new Style(lSupprimer.getUnselectedStyle());
+        buttonStyle.setFgColor(0xe06c24);
+        FontImage suprrimerImage = FontImage.createMaterial(FontImage.MATERIAL_DELETE, buttonStyle);
         lSupprimer.setIcon(suprrimerImage);
         lSupprimer.setTextPosition(RIGHT);
         
@@ -300,16 +300,147 @@ public class MyDogsForm extends BaseForm{
            
         });
         
-                cnt.add(BorderLayout.CENTER, BoxLayout.encloseY(
+         //add lost button
+        Label lost = new Label(" ");
+        lost.setUIID("NewsTopLine");
+        Style lostStyle = new Style(lost.getUnselectedStyle());
+        FontImage lostImage = FontImage.createMaterial(FontImage.MATERIAL_SEARCH,buttonStyle);
+        lost.setIcon(lostImage);
+        lost.setTextPosition(RIGHT);
+        
+      
+        lost.addPointerPressedListener(l -> {
+            Dialog dig = new Dialog("Lost");
+            
+            if(dig.show("Lost","Do you want to declare your dog as lost","Cancel","Yes")) {
+                dig.dispose();
+               
+            }
+            else {
+                dig.dispose();
+                ServiceAnnonceProprietaireChien.getInstance().addLost(c.getIdchien());
+                    new MyDogsForm(res).show();
+                
+                 }
+                
+           
+        });
+        
+         //remove lost button
+        Label notLost = new Label(" ");
+        notLost.setUIID("NewsTopLine");
+        FontImage notLostImage = FontImage.createMaterial(FontImage.MATERIAL_SEARCH_OFF,buttonStyle);
+        notLost.setIcon(notLostImage);
+        notLost.setTextPosition(RIGHT);
+        
+      
+        notLost.addPointerPressedListener(l -> {
+            Dialog dig = new Dialog("Lost");
+            
+            if(dig.show("Lost","Do you want to declare your dog as found","Cancel","Yes")) {
+                dig.dispose();
+               
+            }
+            else {
+                dig.dispose();
+                ServiceAnnonceProprietaireChien.getInstance().removeLost(c.getIdchien());
+                    new MyDogsForm(res).show();
+                
+                 }
+                
+           
+        });
+        
+        //add mating button
+        Label mating = new Label(" ");
+        mating.setUIID("NewsTopLine");
+        FontImage matingImage = FontImage.createMaterial(FontImage.MATERIAL_CHECK_CIRCLE_OUTLINE,buttonStyle);
+        mating.setIcon(matingImage);
+        mating.setTextPosition(RIGHT);
+        
+      
+        mating.addPointerPressedListener(l -> {
+            Dialog dig = new Dialog("Mating");
+            
+            if(dig.show("Lost","Do you want to declare your dog as looking for a partner","Cancel","Yes")) {
+                dig.dispose();
+               
+            }
+            else {
+                dig.dispose();
+                ServiceAnnonceProprietaireChien.getInstance().addMating(c.getIdchien());
+                    new MyDogsForm(res).show();
+                
+                 }
+                
+           
+        });
+         //remove mating button
+        Label notMating = new Label(" ");
+        notMating.setUIID("NewsTopLine");
+        FontImage notMatingImage = FontImage.createMaterial(FontImage.MATERIAL_CHECK_CIRCLE,buttonStyle);
+        notMating.setIcon(notMatingImage);
+        notMating.setTextPosition(RIGHT);
+        
+       notMating.addPointerPressedListener(l -> {
+            Dialog dig = new Dialog("Mating");
+            
+            if(dig.show("Lost","Has your dog found a partner?","Cancel","Yes")) {
+                dig.dispose();
+               
+            }
+            else {
+                dig.dispose();
+                ServiceAnnonceProprietaireChien.getInstance().removeMating(c.getIdchien());
+                    new MyDogsForm(res).show();
+                
+                 }
+                
+           
+        });
+        Label lostButton=lost;
+       Label matingButton=mating;
+       if (c.getMissing()==1)
+       {
+       lostButton=notLost;
+       }
+       if (c.getMating()==1)
+       {
+       matingButton=notMating;
+       }
+      
+        
+        
+        FontImage heart = FontImage.createMaterial(FontImage.MATERIAL_FAVORITE, buttonStyle);
+         Label likes = new Label(Integer.toString(c.getNbLikes()));
+        likes.setUIID("NewsTopLine");
+        likes.setIcon(heart);
+        likes.setTextPosition(RIGHT);
+       
+                cnt.add(BorderLayout.CENTER, BoxLayout.encloseX(
 
          
             BoxLayout.encloseX(NameCategTxt),
             BoxLayout.encloseX(DescriptionCategTxt),
             BoxLayout.encloseX(margin),
-            BoxLayout.encloseX(lSupprimer)
+            BoxLayout.encloseX(likes)
+            
+            
                      
 
         ));
+                 cnt.add(BorderLayout.EAST, BoxLayout.encloseY(
+         BoxLayout.encloseX(lSupprimer),
+         BoxLayout.encloseX(matingButton),
+            BoxLayout.encloseX(lostButton)
+           
+            
+                     
+
+        ));
+           
+                 
+                 
 
         add(cnt);
        

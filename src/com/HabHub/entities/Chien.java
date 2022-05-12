@@ -21,6 +21,10 @@ public class Chien {
     private String race;
     private String groupe;
     private Individu idIndividu;
+    private int liked;
+    private int missing;
+    private int mating;
+    private int nbLikes;
 
     public Chien() {
     }
@@ -163,10 +167,45 @@ public class Chien {
         this.idIndividu = idIndividu;
     }
 
+    public int getLiked() {
+        return liked;
+    }
+
+    public void setLiked(int liked) {
+        this.liked = liked;
+    }
+
+    public int getMissing() {
+        return missing;
+    }
+
+    public void setMissing(int missing) {
+        this.missing = missing;
+    }
+
+    public int getMating() {
+        return mating;
+    }
+
+    public void setMating(int mating) {
+        this.mating = mating;
+    }
+
+    public int getNbLikes() {
+        return nbLikes;
+    }
+
+    public void setNbLikes(int nbLikes) {
+        this.nbLikes = nbLikes;
+    }
+
     @Override
     public String toString() {
-        return "Chien{" + "idchien=" + idchien + ", nom=" + nom + ", age=" + age + ", sexe=" + sexe + ", vaccination=" + vaccination + ", description=" + description + ", image=" + image + ", color=" + color + ", race=" + race + ", groupe=" + groupe + ", idIndividu=" + idIndividu + '}';
+        return "Chien{" + "idchien=" + idchien + ", nom=" + nom + ", age=" + age + ", sexe=" + sexe + ", vaccination=" + vaccination + ", description=" + description + ", image=" + image + ", color=" + color + ", race=" + race + ", groupe=" + groupe + ", idIndividu=" + idIndividu + ", liked=" + liked + ", missing=" + missing + ", mating=" + mating + ", nbLikes=" + nbLikes + '}';
     }
+    
+    
      
+    
     
 }
