@@ -8,9 +8,8 @@
             <file>file:/C:/xampp/htdocs/HabHub-Mobile/src/com/HabHub/services/ServiceChien.java</file>
             <file>file:/C:/xampp/htdocs/HabHub-Mobile/src/com/HabHub/gui/BaseForm.java</file>
             <file>file:/C:/xampp/htdocs/HabHub-Mobile/src/com/HabHub/entities/Chien.java</file>
+            <file>file:/C:/xampp/htdocs/HabHub-Mobile/src/com/HabHub/services/ServiceAnnonceProprietaireChien.java</file>
             <file>file:/C:/xampp/htdocs/HabHub-Mobile/src/com/HabHub/gui/MyDogsForm.java</file>
-            <file>file:/C:/xampp/htdocs/HabHub-Mobile/src/com/HabHub/entities/AnnonceProprietaireChien.java</file>
-            <file>file:/C:/xampp/htdocs/HabHub-Mobile/src/com/HabHub/gui/MatingForm.java</file>
         </group>
     </open-files>
 </project-private>
