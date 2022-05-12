@@ -21,6 +21,12 @@ public class AnnonceProprietaireChien {
     private String localisation;
     private Chien idChien;
 
+    
+    public AnnonceProprietaireChien() {
+       
+    }
+
+    
     public AnnonceProprietaireChien(int idAnnonceProprietaireChien, Date datePublication, String description, String type, Date datePerte, String localisation, Chien idChien) {
         this.idAnnonceProprietaireChien = idAnnonceProprietaireChien;
         this.datePublication = datePublication;
@@ -30,7 +36,8 @@ public class AnnonceProprietaireChien {
         this.localisation = localisation;
         this.idChien = idChien;
     }
-
+    
+     
     public AnnonceProprietaireChien(Date datePublication, String description, String type, Date datePerte, String localisation, Chien idChien) {
         this.datePublication = datePublication;
         this.description = description;

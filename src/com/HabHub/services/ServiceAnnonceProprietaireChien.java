@@ -5,6 +5,7 @@
  */
 package com.HabHub.services;
 import com.HabHub.entities.Chien;
+import com.HabHub.entities.AnnonceProprietaireChien;
 import com.HabHub.utils.Statics;
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
@@ -13,6 +14,7 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import java.io.IOException;
+import org.json.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,16 +25,16 @@ import java.util.Map;
  * @author Ed
  */
 public class ServiceAnnonceProprietaireChien {
-    public static ServiceChien instance=null;
+    public static ServiceAnnonceProprietaireChien instance=null;
     
     public static boolean resultOk = true;
 
         
     private ConnectionRequest req;
     
-    public static ServiceChien getInstance() {
+    public static ServiceAnnonceProprietaireChien getInstance() {
         if (instance==null)
-              instance = new ServiceChien();
+              instance = new ServiceAnnonceProprietaireChien();
             return instance;
     }
     
@@ -52,11 +54,12 @@ public class ServiceAnnonceProprietaireChien {
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
     }
-    public ArrayList<Chien>affichageReclamations() {
-        ArrayList<Chien> result = new ArrayList<>();
+    public ArrayList<AnnonceProprietaireChien>displayLost() {
+        ArrayList<AnnonceProprietaireChien> result = new ArrayList<>();
         
-        String url = Statics.BASE_URL+"/displayMyDogs?id=2";
+        String url = Statics.BASE_URL+"/annonce-proprietaire-chien/displayLost/mobile";
         req.setUrl(url);
+        System.out.println(url);
         
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -65,35 +68,30 @@ public class ServiceAnnonceProprietaireChien {
                 jsonp = new JSONParser();
                 
                 try {
-                    Map<String,Object>mapReclamations = jsonp.parseJSON(new CharArrayReader(new String(req.getResponseData()).toCharArray()));
-                    
-                    List<Map<String,Object>> listOfMaps =  (List<Map<String,Object>>) mapReclamations.get("root");
-                    
-                    for(Map<String, Object> obj : listOfMaps) {
-                        Chien c = new Chien();
+                    String jsonString = new String(req.getResponseData());
+                    System.out.println(jsonString);
+                    JSONArray  obj = new JSONArray (jsonString);
+                    for (int i = 0; i < obj.length(); i++)
+                        {
+                            Chien c = new Chien();
+                        AnnonceProprietaireChien a = new AnnonceProprietaireChien();
                         
-                        //dima id fi codename one float 5outhouha
-                        float idchien = Float.parseFloat(obj.get("idchien").toString());
-                        String nom = obj.get("nom").toString();
-                        String sexe = obj.get("sexe").toString();
-                        String age = obj.get("age").toString();
-                        int nblikes = Integer.parseInt(obj.get("nb").toString());
-                        int missing = Integer.parseInt(obj.get("missing").toString());
-                        int mating = Integer.parseInt(obj.get("mating").toString());
-                        
-                       
-                        
-                        c.setIdchien((int)idchien);
-                        c.setNom(nom);
-                        c.setSexe(sexe);
-                        c.setAge(age);
-                        
+                                String nom = obj.getJSONObject(i).getJSONObject("idchien").getString("nom");
+                                String age = obj.getJSONObject(i).getJSONObject("idchien").getString("age");
+                                String image=obj.getJSONObject(i).getJSONObject("idchien").getString("image");
+                              float idchien = Float.parseFloat(obj.getJSONObject(i).getJSONObject("idchien").get("idchien").toString());
+                                String sexe = obj.getJSONObject(i).getJSONObject("idchien").getString("sexe");
+                                c.setNom(nom);
+                                 c.setAge(age);
+                                  c.setIdchien((int)idchien);
+                                    c.setSexe(sexe);
+                                    c.setImage(image);
+                                    a.setIdChien(c);
                     
-                        //insert data into ArrayList result
-                        result.add(c);
-                      
-                    }
-                    
+                        result.add(a);
+                            
+                        }
+                                               
                 }catch(Exception ex) {
                     
                     ex.printStackTrace();
@@ -109,7 +107,57 @@ public class ServiceAnnonceProprietaireChien {
         
     }
     
-    
+     public ArrayList<AnnonceProprietaireChien>displayMating() {
+        ArrayList<AnnonceProprietaireChien> result = new ArrayList<>();
+        
+        String url = Statics.BASE_URL+"/annonce-proprietaire-chien/displayMating/mobile";
+        req.setUrl(url);
+        
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                JSONParser jsonp ;
+                jsonp = new JSONParser();
+                
+               try {
+                    String jsonString = new String(req.getResponseData());
+                    System.out.println(jsonString);
+                    JSONArray  obj = new JSONArray (jsonString);
+                    for (int i = 0; i < obj.length(); i++)
+                        {
+                            Chien c = new Chien();
+                        AnnonceProprietaireChien a = new AnnonceProprietaireChien();
+                        
+                                String nom = obj.getJSONObject(i).getJSONObject("idchien").getString("nom");
+                                String age = obj.getJSONObject(i).getJSONObject("idchien").getString("age");
+                                String image=obj.getJSONObject(i).getJSONObject("idchien").getString("image");
+                              float idchien = Float.parseFloat(obj.getJSONObject(i).getJSONObject("idchien").get("idchien").toString());
+                                String sexe = obj.getJSONObject(i).getJSONObject("idchien").getString("sexe");
+                                c.setNom(nom);
+                                 c.setAge(age);
+                                  c.setIdchien((int)idchien);
+                                    c.setSexe(sexe);
+                                    c.setImage(image);
+                                    a.setIdChien(c);
+                    
+                        result.add(a);
+                            
+                        }
+                    
+                }catch(Exception ex) {
+                    
+                    ex.printStackTrace();
+                }
+            
+            }
+        });
+        
+      NetworkManager.getInstance().addToQueueAndWait(req);
+
+        return result;
+        
+        
+    }
     
     
     
