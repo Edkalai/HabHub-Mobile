@@ -112,7 +112,7 @@ public class BackBusinessForm extends BaseForm{
         ButtonGroup barGroup = new ButtonGroup();
         RadioButton Ajout = RadioButton.createToggle("Add", barGroup);
         Ajout.setUIID("SelectBar");
-        RadioButton liste = RadioButton.createToggle("Autres", barGroup);
+        RadioButton liste = RadioButton.createToggle("Update", barGroup);
         liste.setUIID("SelectBar");
         RadioButton partage = RadioButton.createToggle("All", barGroup);
         partage.setUIID("SelectBar");
@@ -121,8 +121,8 @@ public class BackBusinessForm extends BaseForm{
 
         
         Ajout.addActionListener((e) -> {
-            BusinessForm front = new BusinessForm(res);
-            front.show();
+            AddBusinessForm add = new AddBusinessForm(res);
+            add.show();
             
             refreshTheme();
         });
@@ -258,7 +258,7 @@ public class BackBusinessForm extends BaseForm{
             else {
                 dig.dispose();
                  if(ServiceBusiness.getInstance().DeleteBusiness(b.getIdbusiness())) {
-                    new MyDogsForm(res).show();
+                      new BackBusinessForm(res).show();                 
                 }
                  }
                 

@@ -23,8 +23,8 @@ public class Business {
 
     
     
-    public Business(int idbusiness, String titre, String description, String horaire, String ville, String type, String image,float lat, float lng) {
-        this.idbusiness = idbusiness;
+    public Business( String titre, String description, String horaire, String ville, String type, String image,float lat, float lng) {
+        
         this.titre = titre;
         this.description = description;
         this.horaire = horaire;
@@ -63,6 +63,15 @@ public class Business {
 */
 
     public Business() {
+    }
+
+    public Business( String titre, String description, String horaire, String ville, String type) {
+          this.idbusiness = idbusiness;
+        this.titre = titre;
+        this.description = description;
+        this.horaire = horaire;
+        this.ville = ville;
+        this.type = type;
     }
     public String getImage() {
         return image;

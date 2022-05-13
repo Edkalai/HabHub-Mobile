@@ -140,11 +140,12 @@ public class ServiceBusiness {
     }
     
         public void AddBusiness(Business bs){
-        String url= Statics.BASE_URL+"/business/mobile/add?titre="+bs.getTitre()+"description="+bs.getDescription()+"horaire="+
-                bs.getHoraire()+"ville="+bs.getVille()+"type="+bs.getType()+"image="+bs.getImage()+"lat="+bs.getLat()+"lng="+bs.getLng();
+        String url= Statics.BASE_URL+"/business/mobile/add?titre="+bs.getTitre()+"&description="+bs.getDescription()+"&horaire="+
+                bs.getHoraire()+"&ville="+bs.getVille()+"&type="+bs.getType()+"&image=sss&lat=0.55&lng=0.888";
                 
         
         req.setUrl(url);
+        System.out.print(url);
         req.addResponseListener((e)-> {
             String str = new String(req.getResponseData());
             System.out.println("data =="+str);
@@ -170,7 +171,7 @@ public class ServiceBusiness {
         return  resultOk;
     }
     
-     public boolean UpdateBusiness(Business business) {
+     public boolean UpdateBusiness(Business business,int id) {
         String url = Statics.BASE_URL+"/business?";
                 
         req.setUrl(url);

@@ -104,11 +104,8 @@ public class BusinessForm extends BaseForm{
         add(LayeredLayout.encloseIn(swipe, radioContainer));
 
         ButtonGroup barGroup = new ButtonGroup();
-        RadioButton mesListes = RadioButton.createToggle("Mes Jeux", barGroup);
-        mesListes.setUIID("SelectBar");
-        RadioButton liste = RadioButton.createToggle("Autres", barGroup);
-        liste.setUIID("SelectBar");
-        RadioButton partage = RadioButton.createToggle("Jeux", barGroup);
+       
+        RadioButton partage = RadioButton.createToggle("All Businesses", barGroup);
         partage.setUIID("SelectBar");
         Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
 
@@ -116,7 +113,7 @@ public class BusinessForm extends BaseForm{
        
 
         add(LayeredLayout.encloseIn(
-                GridLayout.encloseIn(3, mesListes, liste, partage),
+                GridLayout.encloseIn(1, partage),
                 FlowLayout.encloseBottom(arrow)
         ));
 
@@ -126,8 +123,7 @@ public class BusinessForm extends BaseForm{
             arrow.setVisible(true);
             updateArrowPosition(partage, arrow);
         });
-        bindButtonSelection(mesListes, arrow);
-        bindButtonSelection(liste, arrow);
+        
         bindButtonSelection(partage, arrow);
         // special case for rotation
         addOrientationListener(e -> {
