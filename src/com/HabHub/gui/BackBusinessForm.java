@@ -128,7 +128,7 @@ public class BackBusinessForm extends BaseForm{
         });
 
         add(LayeredLayout.encloseIn(
-                GridLayout.encloseIn(3, partage, Ajout, liste),
+                GridLayout.encloseIn(2, partage, Ajout),
                 FlowLayout.encloseBottom(arrow)
         ));
 
