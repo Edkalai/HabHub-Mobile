@@ -61,7 +61,7 @@ public class ServiceProduit {
     
     
     //afficher les produit
-    public ArrayList<Produit> AfficherProduits(){
+    public  ArrayList<Produit> AfficherProduits(){
         ArrayList<Produit> result = new ArrayList<>();
   
         
@@ -90,6 +90,8 @@ public class ServiceProduit {
                         String description = obj.get("description").toString();
                         float prix = Float.parseFloat(obj.get("prix").toString());
                         String marque = obj.get("marque").toString();
+                        
+                        
                         
                       //  float idCategorie = Float.parseFloat(obj.get("idcategorie").toString());
                      
