@@ -71,7 +71,8 @@ public class ListProduitsForm extends BaseForm {
         getTitleArea().setUIID("Container");
         setTitle("Search For A Product");
         getContentPane().setScrollVisible(false);
-        
+        super.addSideMenu(res);
+
         int occ = 0;
         tb.addSearchCommand(e ->  {
             
@@ -190,7 +191,9 @@ public class ListProduitsForm extends BaseForm {
                 VoirCommande.setVisible(false);
                 panier.add(Commander);
                 panier.add(VoirCommande);
-
+                 Commander.addActionListener(e-> {
+                new ListProduitsForm(res).show();        
+                    });
                 f.show();
             }
          });

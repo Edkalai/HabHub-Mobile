@@ -137,7 +137,7 @@ public class AddBusinessForm extends BaseForm{
         
        
         add(LayeredLayout.encloseIn(
-                GridLayout.encloseIn(3, mesListes, liste),
+                GridLayout.encloseIn(2, mesListes, liste),
                 FlowLayout.encloseBottom(arrow)
         ));
 

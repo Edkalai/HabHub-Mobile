@@ -130,22 +130,14 @@ public class ListAdoption extends BaseForm {
         mesListes.setUIID("SelectBar");
         RadioButton liste = RadioButton.createToggle("Autres", barGroup);
         liste.setUIID("SelectBar");
-        RadioButton partage = RadioButton.createToggle("Reclamer", barGroup);
+        RadioButton partage = RadioButton.createToggle("Adoption Posts", barGroup);
         partage.setUIID("SelectBar");
         Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
 
 
-        mesListes.addActionListener((e) -> {
-               InfiniteProgress ip = new InfiniteProgress();
-        final Dialog ipDlg = ip.showInifiniteBlocking();
-        
-        //  ListReclamationForm a = new ListReclamationForm(res);
-          //  a.show();
-            refreshTheme();
-        });
 
         add(LayeredLayout.encloseIn(
-                GridLayout.encloseIn(3, mesListes, liste, partage),
+                GridLayout.encloseIn(1, partage),
                 FlowLayout.encloseBottom(arrow)
         ));
 
