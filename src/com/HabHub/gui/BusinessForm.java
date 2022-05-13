@@ -104,26 +104,16 @@ public class BusinessForm extends BaseForm{
         add(LayeredLayout.encloseIn(swipe, radioContainer));
 
         ButtonGroup barGroup = new ButtonGroup();
-        RadioButton mesListes = RadioButton.createToggle("Mes Jeux", barGroup);
-        mesListes.setUIID("SelectBar");
-        RadioButton liste = RadioButton.createToggle("Autres", barGroup);
-        liste.setUIID("SelectBar");
-        RadioButton partage = RadioButton.createToggle("Jeux", barGroup);
+       
+        RadioButton partage = RadioButton.createToggle("All Businesses", barGroup);
         partage.setUIID("SelectBar");
         Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
 
 
-        mesListes.addActionListener((e) -> {
-               InfiniteProgress ip = new InfiniteProgress();
-        final Dialog ipDlg = ip.showInifiniteBlocking();
-        
-        //  ListReclamationForm a = new ListReclamationForm(res);
-          //  a.show();
-            refreshTheme();
-        });
+       
 
         add(LayeredLayout.encloseIn(
-                GridLayout.encloseIn(3, mesListes, liste, partage),
+                GridLayout.encloseIn(1, partage),
                 FlowLayout.encloseBottom(arrow)
         ));
 
@@ -133,8 +123,7 @@ public class BusinessForm extends BaseForm{
             arrow.setVisible(true);
             updateArrowPosition(partage, arrow);
         });
-        bindButtonSelection(mesListes, arrow);
-        bindButtonSelection(liste, arrow);
+        
         bindButtonSelection(partage, arrow);
         // special case for rotation
         addOrientationListener(e -> {
@@ -153,7 +142,7 @@ public class BusinessForm extends BaseForm{
             Image placeHolder = Image.createImage(120, 90);
             EncodedImage enc = EncodedImage.createFromImage(placeHolder, false);
             URLImage urlim = URLImage.createToStorage(enc, urlImage, urlImage, URLImage.RESIZE_SCALE);
-            addDog(urlim,b,res,i);
+            addBusinessToList(urlim,b,res,i);
             ScaleImageLabel image = new ScaleImageLabel(urlim);
             Container containerImg = new Container();
             image.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
@@ -214,7 +203,7 @@ public class BusinessForm extends BaseForm{
 
     }
 
-    private void addDog(Image img,Business b, Resources res, int i) {
+    private void addBusinessToList(Image img,Business b, Resources res, int i) {
         
         
         int height = Display.getInstance().convertToPixels(16f);

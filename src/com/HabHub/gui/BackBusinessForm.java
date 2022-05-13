@@ -32,6 +32,12 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.HabHub.entities.Business;
 import com.HabHub.services.ServiceBusiness;
+import com.HabHub.services.ServiceChien;
+import static com.codename1.ui.Component.BOTTOM;
+import static com.codename1.ui.Component.CENTER;
+import static com.codename1.ui.Component.LEFT;
+import static com.codename1.ui.Component.RIGHT;
+import com.codename1.ui.FontImage;
 import java.util.ArrayList;
 
 /**
@@ -61,7 +67,7 @@ public class BackBusinessForm extends BaseForm{
         Label s1 = new Label();
         Label s2 = new Label();
 
-        addTab(swipe,s1,res.getImage("back-logo.png"),"","",res);
+        addTab(swipe,s1,"","",res);
 
         // Design
 
@@ -104,26 +110,25 @@ public class BackBusinessForm extends BaseForm{
         add(LayeredLayout.encloseIn(swipe, radioContainer));
 
         ButtonGroup barGroup = new ButtonGroup();
-        RadioButton mesListes = RadioButton.createToggle("Mes Jeux", barGroup);
-        mesListes.setUIID("SelectBar");
-        RadioButton liste = RadioButton.createToggle("Autres", barGroup);
+        RadioButton Ajout = RadioButton.createToggle("Add", barGroup);
+        Ajout.setUIID("SelectBar");
+        RadioButton liste = RadioButton.createToggle("Update", barGroup);
         liste.setUIID("SelectBar");
-        RadioButton partage = RadioButton.createToggle("Jeux", barGroup);
+        RadioButton partage = RadioButton.createToggle("All", barGroup);
         partage.setUIID("SelectBar");
         Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
 
 
-        mesListes.addActionListener((e) -> {
-               InfiniteProgress ip = new InfiniteProgress();
-        final Dialog ipDlg = ip.showInifiniteBlocking();
         
-        //  ListReclamationForm a = new ListReclamationForm(res);
-          //  a.show();
+        Ajout.addActionListener((e) -> {
+            AddBusinessForm add = new AddBusinessForm(res);
+            add.show();
+            
             refreshTheme();
         });
 
         add(LayeredLayout.encloseIn(
-                GridLayout.encloseIn(3, mesListes, liste, partage),
+                GridLayout.encloseIn(3, partage, Ajout, liste),
                 FlowLayout.encloseBottom(arrow)
         ));
 
@@ -133,7 +138,7 @@ public class BackBusinessForm extends BaseForm{
             arrow.setVisible(true);
             updateArrowPosition(partage, arrow);
         });
-        bindButtonSelection(mesListes, arrow);
+        bindButtonSelection(Ajout, arrow);
         bindButtonSelection(liste, arrow);
         bindButtonSelection(partage, arrow);
         // special case for rotation
@@ -153,35 +158,23 @@ public class BackBusinessForm extends BaseForm{
             Image placeHolder = Image.createImage(120, 90);
             EncodedImage enc = EncodedImage.createFromImage(placeHolder, false);
             URLImage urlim = URLImage.createToStorage(enc, urlImage, urlImage, URLImage.RESIZE_SCALE);
-            addDog(urlim,b,res,i);
+            addBusinessToList(urlim,b,res,i);
             ScaleImageLabel image = new ScaleImageLabel(urlim);
             Container containerImg = new Container();
             image.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
         } 
        
     }
-        private void addTab(Tabs swipe, Label spacer, Image image, String string, String text, Resources res) {
+        private void addTab(Tabs swipe, Label spacer, String string, String text, Resources res) {
 
         int size = Math.min(Display.getInstance().getDisplayWidth(), Display.getInstance().getDisplayHeight());
         
-        if(image.getHeight() < size)
-        {
-            image = image.scaledHeight(size);
-        }
-
-        if(image.getHeight() > Display.getInstance().getDisplayHeight() / 2)
-        {
-             image = image.scaledHeight(Display.getInstance().getDisplayHeight() / 2);
-        }
-
-        ScaleImageLabel imageScale = new ScaleImageLabel(image);
-        imageScale.setUIID("Container");
-        imageScale.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
+        
 
         Label overLay = new Label("","ImageOverlay");
 
         Container page1 = LayeredLayout.encloseIn(
-            imageScale,
+            
             overLay,
             BorderLayout.south(
                 BoxLayout.encloseY(
@@ -214,7 +207,7 @@ public class BackBusinessForm extends BaseForm{
 
     }
 
-    private void addDog(Image img,Business b, Resources res, int i) {
+    private void addBusinessToList(Image img,Business b, Resources res, int i) {
         
         
         int height = Display.getInstance().convertToPixels(16f);
@@ -227,19 +220,63 @@ public class BackBusinessForm extends BaseForm{
 
           
         
-        Label titreTxt = new Label("Nom :"+b.getTitre(),"NewsTopLine2");
+        Label titreTxt = new Label(b.getTitre(),"NewsTopLine2");
         Label DescriptionTxt = new Label("Description: "+b.getDescription(),"NewsTopLine2");
-        Label margin = new Label("","NewsTopLine2");
+        Label horaireTxt = new Label("Opening Hours: "+b.getHoraire(),"NewsTopLine1");
+        Label villeTxt = new Label("City: "+b.getVille(),"NewsTopLine2");
+        Label typeTxt = new Label("Type: "+b.getType(),"NewsTopLine2");
+        Label margin = new Label("    ","NewsTopLine2");
+        Label line = new Label("__________________________","NewsTopLine2");
 
+        
+             
+
+         createLineSeparator();
+        
+       
+       
+        
+        //supprimer button
+        Label lSupprimer = new Label(" ");
+        lSupprimer.setUIID("NewsTopLine");
+        Style supprmierStyle = new Style(lSupprimer.getUnselectedStyle());
+        supprmierStyle.setFgColor(0xf21f1f);
+        
+        FontImage supprimerImage = FontImage.createMaterial(FontImage.MATERIAL_DELETE, supprmierStyle);
+        lSupprimer.setIcon(supprimerImage);
+        lSupprimer.setTextPosition(RIGHT);
+        
+        //click delete icon
+        lSupprimer.addPointerPressedListener(l -> {
+            
+            Dialog dig = new Dialog("Suppression");
+            
+            if(dig.show("Suppression","Vous voulez supprimer ce Business ?","Annuler","Oui")) {
+                dig.dispose();
+               
+            }
+            else {
+                dig.dispose();
+                 if(ServiceBusiness.getInstance().DeleteBusiness(b.getIdbusiness())) {
+                      new BackBusinessForm(res).show();                 
+                }
+                 }
+                
+           
+        });
         
         
                 cnt.add(BorderLayout.CENTER, BoxLayout.encloseY(
 
          
-            BoxLayout.encloseX(titreTxt),
+            BoxLayout.encloseX(titreTxt),                        
             BoxLayout.encloseX(DescriptionTxt),
-            BoxLayout.encloseX(margin)
-
+            BoxLayout.encloseX(horaireTxt),
+            BoxLayout.encloseX(villeTxt),
+            BoxLayout.encloseX(typeTxt),
+            BoxLayout.encloseX(lSupprimer),
+            BoxLayout.encloseX(margin),
+            BoxLayout.encloseX(line)
         ));
 
         add(cnt);
