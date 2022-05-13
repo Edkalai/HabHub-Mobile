@@ -55,6 +55,7 @@ import java.util.List;
  * @author asus
  */
 public class ListProduitsForm extends BaseForm {
+    public static List<Produit> p = new ArrayList<>();
      Form f = new Form("Panier Liste", new BoxLayout(BoxLayout.Y_AXIS));
       
     Form current;
@@ -145,7 +146,7 @@ public class ListProduitsForm extends BaseForm {
         
 
           
-            ArrayList <Produit> p = new ArrayList<>();
+         //  ArrayList <Produit> p = new ArrayList<>();
            
 
         ButtonGroup barGroup = new ButtonGroup();
@@ -384,7 +385,7 @@ public class ListProduitsForm extends BaseForm {
             new ModifierReclamationForm(res,rec).show();
         });*/
        
-       ArrayList <Produit> p = new ArrayList<>();
+      
         ap.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
