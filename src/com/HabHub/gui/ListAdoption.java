@@ -60,7 +60,7 @@ public class ListAdoption extends BaseForm {
         setTitle("Ajout Reclamation");
         getContentPane().setScrollVisible(false);
         
-        
+        super.addSideMenu(res);
         tb.addSearchCommand(e ->  {
             
         });

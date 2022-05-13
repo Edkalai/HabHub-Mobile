@@ -75,7 +75,7 @@ public class AdoptionService {
     public ArrayList<AnnonceAdoption>displayAdoption() {
         ArrayList<AnnonceAdoption> result = new ArrayList<>();
         
-        String url = Statics.BASE_URL+"/annonce/adoption/displayMobileAdoption";
+        String url = Statics.BASE_URL+"/annonce/adoption/mobile/displayMobileAdoption";
         req.setUrl(url);
         System.out.println(url);
         
@@ -201,7 +201,7 @@ public class AdoptionService {
     */
     //Delete 
     public boolean deleteAnnonce(int id ) {
-        String url = Statics.BASE_URL +"/annonce/adoption/deleteAdoption?id="+id;
+        String url = Statics.BASE_URL +"/annonce/adoption/mobile/deleteAdoption?id="+id;
         
         req.setUrl(url);
         
@@ -297,7 +297,7 @@ public class AdoptionService {
     
     //Update 
     public boolean modifierAnnonce(AnnonceAdoption annonce) {
-        String url = Statics.BASE_URL +"/annonce/adoption/updateMobileAdoption?id="+annonce.getIdAnnonceAdoption()+"&localisation="+annonce.getLocalisation()+"&description="+annonce.getDescription();
+        String url = Statics.BASE_URL +"/annonce/adoption/mobile/updateMobileAdoption?id="+annonce.getIdAnnonceAdoption()+"&localisation="+annonce.getLocalisation()+"&description="+annonce.getDescription();
         req.setUrl(url);
         
         req.addResponseListener(new ActionListener<NetworkEvent>() {

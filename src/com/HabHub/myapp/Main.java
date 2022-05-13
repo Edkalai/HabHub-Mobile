@@ -56,7 +56,7 @@ public class Main {
             return;
         }
 
-        new BusinessForm(theme).show();
+        new SignInForm(theme).show();
     }
     public void stop() {
         current = getCurrentForm();
