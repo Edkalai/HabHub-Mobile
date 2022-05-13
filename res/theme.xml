@@ -9,18 +9,15 @@
     <image name="facebook-logo.png" type="multi"  />
     <image name="Logo.png" type="multi"  />
     <image name="map-pin.jpg"  />
-    <image name="news-item-1.jpg"  />
-    <image name="news-item-2.jpg"  />
-    <image name="news-item-3.jpg"  />
-    <image name="news-item-4.jpg"  />
-    <image name="news-item.jpg"  />
     <image name="news-tab-down-arrow.png" type="multi"  />
     <image name="news-tab-down.png" type="multi"  />
     <image name="on-off-off.png" type="multi"  />
     <image name="on-off-on.png" type="multi"  />
     <image name="oublier.png"  />
     <image name="profile-background.jpg"  />
+    <image name="profile-background2.jpg"  />
     <image name="profile-pic.jpg" type="multi"  />
+    <image name="profile-picc.png"  />
     <image name="signin-background.jpg"  />
     <image name="signup-background.jpg"  />
     <image name="smily.png" type="multi"  />
@@ -41,30 +38,11 @@
         <val key="BottomPad.padUnit" value="0,0,2,0" />
         <val key="BottomPad.padding" value="0,0,0,0" />
         <val key="BottomPad.transparency" value="0" />
-        <val key="Button.align" value="4" />
-        <border key="Button.border" type="round" roundBorderColor="16723285" opacity="255" strokeColor="0" strokeOpacity="255" strokeThickness="0.0" strokeMM="false" shadowSpread="10" shadowOpacity="0" shadowX="0.5" shadowY="0.5" shadowBlur="10.0" shadowMM="false" rectangle="true" />
+        <val key="Button.bgColor" value="e0624d" />
+        <border key="Button.border" type="roundRect" strokeColor="0" strokeOpacity="255" strokeThickness="0.0" strokeMM="false" shadowSpread="10.0" shadowOpacity="0" shadowX="0.5" shadowY="0.5" shadowBlur="10.0" topOnlyMode="false" bottomOnlyMode="false" cornerRadius="5.0" bezierCorners="false" />
         <val key="Button.fgColor" value="ffffff" />
-        <font key="Button.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="2.5" />
-        <val key="Button.marUnit" value="2,2,2,2" />
-        <val key="Button.margin" value="3,3,2,2" />
-        <val key="Button.padUnit" value="2,2,2,2" />
-        <val key="Button.padding" value="2,2,2,2" />
-        <val key="Button.press#align" value="4" />
-        <border key="Button.press#border" type="round" roundBorderColor="12982329" opacity="255" strokeColor="0" strokeOpacity="255" strokeThickness="0.0" strokeMM="false" shadowSpread="10" shadowOpacity="0" shadowX="0.5" shadowY="0.5" shadowBlur="10.0" shadowMM="false" rectangle="true" />
-        <val key="Button.press#fgColor" value="ffffff" />
-        <font key="Button.press#font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="2.0" />
-        <val key="Button.press#marUnit" value="2,2,2,2" />
-        <val key="Button.press#margin" value="3,3,2,2" />
-        <val key="Button.press#padUnit" value="2,2,2,2" />
-        <val key="Button.press#padding" value="2,2,2,2" />
-        <val key="Button.sel#align" value="4" />
-        <border key="Button.sel#border" type="round" roundBorderColor="16723285" opacity="255" strokeColor="0" strokeOpacity="255" strokeThickness="0.0" strokeMM="false" shadowSpread="10" shadowOpacity="0" shadowX="0.5" shadowY="0.5" shadowBlur="10.0" shadowMM="false" rectangle="true" />
-        <val key="Button.sel#fgColor" value="ffffff" />
-        <font key="Button.sel#font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="2.5" />
-        <val key="Button.sel#marUnit" value="2,2,2,2" />
-        <val key="Button.sel#margin" value="3,3,2,2" />
-        <val key="Button.sel#padUnit" value="2,2,2,2" />
-        <val key="Button.sel#padding" value="2,2,2,2" />
+        <font key="Button.font" type="system" face="0" style="1" size="0" />
+        <val key="Button.transparency" value="255" />
         <val key="CenterLabel.align" value="4" />
         <val key="CenterLabel.derive" value="Label" />
         <val key="CenterLink.align" value="4" />
@@ -189,7 +167,7 @@
         <val key="SelectBar.press#padding" value="2.0,3.0,0.0,0.0" />
         <val key="SelectBar.press#transparency" value="255" />
         <val key="SelectBar.sel#align" value="4" />
-        <val key="SelectBar.sel#bgColor" value="ff2d55" />
+        <val key="SelectBar.sel#bgColor" value="e06c24" />
         <val key="SelectBar.sel#bgImage" value="news-tab-down.png" />
         <val key="SelectBar.sel#bgType" value="30" />
         <border key="SelectBar.sel#border" type="empty" />
