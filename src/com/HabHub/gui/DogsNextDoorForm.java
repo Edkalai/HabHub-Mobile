@@ -170,16 +170,15 @@ public class DogsNextDoorForm extends BaseForm{
                 
         //Appel affichage methode
         ArrayList<Chien>list = ServiceChien.getInstance().displayDogsNextDoor(); 
-             int i = 0;
+            
         for(Chien c : list)
         {
-            i++;
+      
              String urlImage = "http://localhost/HabHub-Website/public/FrontOffice/uploads/"+c.getImage();
-            System.out.println(c.getImage());
             Image placeHolder = Image.createImage(120, 90);
             EncodedImage enc = EncodedImage.createFromImage(placeHolder, false);
             URLImage urlim = URLImage.createToStorage(enc, urlImage, urlImage, URLImage.RESIZE_SCALE);
-            addDog(urlim,c,res,i);
+            addDog(urlim,c,res);
             ScaleImageLabel image = new ScaleImageLabel(urlim);
             Container containerImg = new Container();
             image.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
@@ -251,7 +250,7 @@ public class DogsNextDoorForm extends BaseForm{
 
     }
 
-    private void addDog(Image img,Chien c, Resources res, int i) {
+    private void addDog(Image img,Chien c, Resources res) {
         
         
         int height = Display.getInstance().convertToPixels(16f);
@@ -264,23 +263,74 @@ public class DogsNextDoorForm extends BaseForm{
 
           
         
-        Label NameCategTxt = new Label("Nom :"+c.getNom(),"NewsTopLine2");
-        Label DescriptionCategTxt = new Label("Age: "+c.getAge(),"NewsTopLine2");
+        Label NameCategTxt = new Label(c.getNom(),"NewsTopLine2");
+        Label DescriptionCategTxt = new Label(c.getAge(),"NewsTopLine2");
         Label margin = new Label("","NewsTopLine2");
 
          createLineSeparator();
         
+       //like button
+        Label liked = new Label(" ");
+        liked.setUIID("NewsTopLine");
+        Style buttonStyle = new Style(liked.getUnselectedStyle());
+        buttonStyle.setFgColor(0xe06c24);
+        FontImage likedImage = FontImage.createMaterial(FontImage.MATERIAL_FAVORITE,buttonStyle);
+        liked.setIcon(likedImage);
+        liked.setTextPosition(RIGHT);
+        
+      
+        liked.addPointerPressedListener(l -> {
+           
+                ServiceChien.getInstance().removeLike(2,c.getIdchien());
+                    new DogsNextDoorForm(res).show();
+                
+                
+                
+           
+        });
+         //dislike button
+        Label notLiked = new Label(" ");
+        notLiked.setUIID("NewsTopLine");
+       FontImage notLikedImage = FontImage.createMaterial(FontImage.MATERIAL_FAVORITE_BORDER,buttonStyle);
+        notLiked.setIcon(notLikedImage);
+        notLiked.setTextPosition(RIGHT);
+        
+       notLiked.addPointerPressedListener(l -> {
+            
+                ServiceChien.getInstance().addLike(2,c.getIdchien());
+                System.out.println("test");
+                    new DogsNextDoorForm(res).show();
+              
+                
+           
+        });
+        System.out.println(c.getLiked());
+        Label likeButton;
+       if (c.getLiked()==0)
+       {
+       likeButton=notLiked;
+       }
+       else
+       {
+           likeButton=liked;
+       }
        
-       
         
         
         
-                cnt.add(BorderLayout.CENTER, BoxLayout.encloseY(
+                cnt.add(BorderLayout.CENTER, BoxLayout.encloseX(
 
          
             BoxLayout.encloseX(NameCategTxt),
             BoxLayout.encloseX(DescriptionCategTxt),
             BoxLayout.encloseX(margin)
+                     
+
+        ));
+                cnt.add(BorderLayout.EAST, BoxLayout.encloseX(
+
+           
+            BoxLayout.encloseX(likeButton)
                      
 
         ));

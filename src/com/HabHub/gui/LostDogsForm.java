@@ -266,21 +266,21 @@ public class LostDogsForm extends BaseForm{
         
 
           
-        
-        Label NameCategTxt = new Label("Nom :"+a.getIdChien().getNom(),"NewsTopLine2");
-        Label DescriptionCategTxt = new Label("Age: "+a.getIdChien().getAge(),"NewsTopLine2");
+        Label prenom = new Label(a.getIdChien().getIdIndividu().getPrenom(),"NewsTopLine2");
+        System.out.println(a.getIdChien().getIdIndividu().getPrenom());
+        Label NameCategTxt = new Label(a.getIdChien().getNom(),"NewsTopLine2");
+        Label DescriptionCategTxt = new Label(a.getIdChien().getAge(),"NewsTopLine2");
         Label margin = new Label("","NewsTopLine2");
 
          createLineSeparator();
         
        
        
+ 
         
-     
-        
-                cnt.add(BorderLayout.CENTER, BoxLayout.encloseY(
+                cnt.add(BorderLayout.CENTER, BoxLayout.encloseX(
 
-         
+         BoxLayout.encloseX(prenom),
             BoxLayout.encloseX(NameCategTxt),
             BoxLayout.encloseX(DescriptionCategTxt),
             BoxLayout.encloseX(margin)

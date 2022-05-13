@@ -70,7 +70,7 @@ public class SignInForm extends BaseForm {
         content.setScrollableY(true);
         add(BorderLayout.SOUTH, content);
         signIn.requestFocus();
-        signIn.addActionListener(e -> new NewsfeedForm(res).show());
+        signIn.addActionListener(e -> new BusinessForm(res).show());
     }
     
 }
