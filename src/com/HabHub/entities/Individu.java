@@ -114,7 +114,7 @@ public class Individu {
     }
 
     public void setIdIndividu(int idIndividu) {
-        this.idindividu = idindividu;
+        this.idindividu = idIndividu;
     }
 
     public Utilisateur getUtilisateur() {

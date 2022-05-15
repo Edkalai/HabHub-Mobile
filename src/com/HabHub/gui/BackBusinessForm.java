@@ -44,7 +44,7 @@ import java.util.ArrayList;
  *
  * @author tarek
  */
-public class BackBusinessForm extends BaseForm{
+public class BackBusinessForm extends BackBaseForm{
      Form current;
     
     public BackBusinessForm(Resources res){
