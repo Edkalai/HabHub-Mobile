@@ -92,12 +92,14 @@ public class AdoptionService {
                     for (int i = 0; i < obj.length(); i++)
                         {
                             Chien c = new Chien();
+                            Individu ind= new Individu();
                         AnnonceAdoption a = new AnnonceAdoption();
                         
                                 String nom = obj.getJSONObject(i).getJSONObject("idchien").getString("nom");
                                 String age = obj.getJSONObject(i).getJSONObject("idchien").getString("age");
                                 String image=obj.getJSONObject(i).getJSONObject("idchien").getString("image");
                                 float idchien = Float.parseFloat(obj.getJSONObject(i).getJSONObject("idchien").get("idchien").toString());
+                                float idindividu = Float.parseFloat(obj.getJSONObject(i).getJSONObject("idindividu").get("idindividu").toString());
                                 float id = Float.parseFloat(obj.getJSONObject(i).get("idannonceadoption").toString());
                                 String sexe = obj.getJSONObject(i).getJSONObject("idchien").getString("sexe");
                                 String description = obj.getJSONObject(i).getString("description").toString();
@@ -107,8 +109,11 @@ public class AdoptionService {
                                   c.setIdchien((int)idchien);
                                   a.setIdAnnonceAdoption((int)id);
                                     c.setSexe(sexe);
+                                    ind.setIdIndividu((int)idindividu);
                                     c.setImage(image);
                                     a.setIdChien(c);
+                                    a.setIdIndividu(ind);
+                                    System.out.println(ind);
                                     a.setDescription(description);
                                     a.setLocalisation(localisation);
                                     

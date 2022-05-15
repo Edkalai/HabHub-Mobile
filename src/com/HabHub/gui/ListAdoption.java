@@ -315,7 +315,14 @@ public class ListAdoption extends BaseForm {
             new updateAdoptionForm(res,rec).show();
         });
         
-        
+        Label modifier=new Label();
+        Label supprimer=new Label();
+        System.out.println(rec.getIdIndividu().getIdIndividu());
+        if (rec.getIdIndividu().getIdIndividu()==2){
+            System.out.println("teeeeeeeeeeest");
+            modifier=lModifier;
+            supprimer=lSupprimer;
+        }
         cnt.add(BorderLayout.CENTER,BoxLayout.encloseY(
                 
                 BoxLayout.encloseX(nameTxt),
@@ -327,7 +334,7 @@ public class ListAdoption extends BaseForm {
                 BoxLayout.encloseX(descTxt),
                 BoxLayout.encloseX(localTxt),
                 BoxLayout.encloseX(dateTxt),
-                BoxLayout.encloseX(lModifier,lSupprimer)));
+                BoxLayout.encloseX(modifier,supprimer)));
         
         
         
